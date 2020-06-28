@@ -1,10 +1,20 @@
+using AutoMapper;
+using CadeOErro.Server.Config;
+using CadeOErro.Server.Data;
+using CadeOErro.Server.Interfaces.Repositories;
 using CadeOErro.Server.Models;
+using CadeOErro.Server.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace CadeOErro.Server
 {
@@ -21,8 +31,54 @@ namespace CadeOErro.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<CadeOErroContext>(options => {
+
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+
+            services.AddAutoMapper(typeof(Startup));
+
+            this.AddAuthentication(services);
+
+
+            services.AddDbContext<CadeOErroContext>(options =>
+            {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+
+            services.AddScoped<IUserRepository, UserRepository>();
+        }
+
+        public void AddAuthentication(IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("user", policy => policy.RequireClaim("CadeOErro", "user"));
+                options.AddPolicy("admin", policy => policy.RequireClaim("CadeOErro", "admin"));
+            });
+
+            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
         }
 

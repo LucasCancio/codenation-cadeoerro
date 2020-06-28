@@ -18,17 +18,15 @@ namespace CadeOErro.Server.Models
         [Required]
         public string password { get; set; }
         [Required]
+        [MaxLength(11)]
         public string cpf { get; set; }
         public string token { get; set; }
 
         public bool active { get; set; }
-        [Column( "created_date")]
+        [Column("created_date")]
         public DateTime createdDate { get; set; }
 
-        [Column( "id_role")]
-        public int idRole { get; set; }
-        [ForeignKey("idRole")]
-        public virtual Role role { get; set; }
-        
+        public string role { get; set; }
+
     }
 }
