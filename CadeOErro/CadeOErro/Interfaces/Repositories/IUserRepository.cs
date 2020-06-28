@@ -7,7 +7,9 @@ namespace CadeOErro.Server.Interfaces.Repositories
     public interface IUserRepository
     {
         Task<List<User>> GetAll();
-        Task<User> GetById(int id);
-        Task<User> GetByEmailAndPassword(string email, string password);
+        Task<User> FindById(int id);
+        Task<User> FindByEmailAndPassword(string email, string password);
+        Task<User> Save(User user);
+        void Delete(int id);
     }
 }

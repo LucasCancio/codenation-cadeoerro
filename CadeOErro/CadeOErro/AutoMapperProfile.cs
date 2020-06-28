@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CadeOErro.Server.DTOs;
+using CadeOErro.Server.DTOs.User;
 using CadeOErro.Server.Models;
 
 namespace CadeOErro.Server
@@ -8,7 +8,7 @@ namespace CadeOErro.Server
     {
         public AutoMapperProfile()
         {
-            CreateMap<User, UserDTO>()
+            CreateMap<User, AuthenticateDTO>()
                 .ReverseMap();
         }
     }

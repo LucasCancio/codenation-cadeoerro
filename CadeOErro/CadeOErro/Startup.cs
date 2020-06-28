@@ -2,8 +2,10 @@ using AutoMapper;
 using CadeOErro.Server.Config;
 using CadeOErro.Server.Data;
 using CadeOErro.Server.Interfaces.Repositories;
+using CadeOErro.Server.Interfaces.Services;
 using CadeOErro.Server.Models;
 using CadeOErro.Server.Repositories;
+using CadeOErro.Server.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -52,6 +54,7 @@ namespace CadeOErro.Server
 
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILoginService, LoginService>();
         }
 
         public void AddAuthentication(IServiceCollection services)

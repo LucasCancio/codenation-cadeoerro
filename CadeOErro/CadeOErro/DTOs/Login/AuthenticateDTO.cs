@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace CadeOErro.Server.DTOs
+namespace CadeOErro.Server.DTOs.Login
 {
-    public class UserDTO
+    public class AuthenticateDTO
     {
         public string email { get; set; }
         public string token { get; set; }
-        public DateTime? expires { get; set; }
+        public DateTime? expiresAt { get; set; }
         public string role { get; set; }
     }
 }

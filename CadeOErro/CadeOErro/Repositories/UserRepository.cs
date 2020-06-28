@@ -1,7 +1,7 @@
 ﻿using CadeOErro.Server.Data;
 using CadeOErro.Server.Interfaces.Repositories;
 using CadeOErro.Server.Models;
-using Microsoft.AspNetCore.Mvc;
+using CadeOErro.Server.Util.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,22 +18,39 @@ namespace CadeOErro.Server.Repositories
         }
         public async Task<List<User>> GetAll()
         {
-            return await _context.Users.Include(user => user.role).ToListAsync();
+            return await _context.Users.ToListAsync();
         }
-        public async Task<User> GetById(int id)
+        public async Task<User> FindById(int id)
         {
             return await _context.Users
-                .Include(user => user.role)
                 .Where(user => user.id == id)
                 .FirstOrDefaultAsync();
         }
-        public async Task<User> GetByEmailAndPassword(string email, string password)
+        public async Task<User> FindByEmailAndPassword(string email, string password)
         {
             return await _context.Users
                 .Where(user => user.email.ToLower() == email.ToLower() && user.password == password)
-                .Include(user => user.role)
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<User> Save(User user)
+        {
+            var state = user.id == 0 ? EntityState.Added : EntityState.Modified;
+
+            _context.Entry(user).State = state;
+            await _context.SaveChangesAsync();
+            return user;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            User user = _context.Users.Find(id);
+            if (user == null) throw new UserNotFoundException("Usuário inexistente");
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

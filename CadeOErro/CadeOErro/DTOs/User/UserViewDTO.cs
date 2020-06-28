@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CadeOErro.Server.Interfaces.Services
+namespace CadeOErro.Server.DTOs.User
 {
-   public interface IRegisterService
+    public class UserViewDTO
     {
     }
 }
