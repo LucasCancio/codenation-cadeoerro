@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Maps\" />
-    <Folder Include="Util\Extensions\" />
   </ItemGroup>
 
   <ItemGroup>

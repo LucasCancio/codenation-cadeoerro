@@ -54,7 +54,11 @@ namespace CadeOErro.Server
 
 
             services.AddScoped<IUserRepository, UserRepository>();
+
             services.AddScoped<ILoginService, LoginService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         public void AddAuthentication(IServiceCollection services)

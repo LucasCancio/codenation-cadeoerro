@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CadeOErro.Server.Config;
-using CadeOErro.Server.DTOs.User;
+using CadeOErro.Server.DTOs.Login;
 using CadeOErro.Server.Interfaces.Repositories;
 using CadeOErro.Server.Interfaces.Services;
 using CadeOErro.Server.Models;

@@ -8,9 +8,9 @@ namespace CadeOErro.Server.Interfaces.Services
     {
         Task<List<UserViewDTO>> GetAll();
         Task<UserViewDTO> GetById(int id);
-        Task<UserViewDTO> Update(UserSaveDTO user);
-        Task<UserViewDTO> Create(UserSaveDTO user);
-        void Delete(int id);
+        Task<UserSaveDTO> Update(UserSaveDTO userToUpdate);
+        Task<UserSaveDTO> Create(UserSaveDTO userToCreate);
+        Task Delete(int id);
 
     }
 }

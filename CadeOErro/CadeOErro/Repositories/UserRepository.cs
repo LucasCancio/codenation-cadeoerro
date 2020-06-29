@@ -42,15 +42,10 @@ namespace CadeOErro.Server.Repositories
             return user;
         }
 
-        public async Task<bool> Delete(int id)
+        public void Delete(User user)
         {
-            User user = _context.Users.Find(id);
-            if (user == null) throw new UserNotFoundException("Usuário inexistente");
-
             _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return true;
+            _context.SaveChanges();
         }
     }
 }

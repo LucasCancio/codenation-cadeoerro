@@ -20,12 +20,9 @@ namespace CadeOErro.Server.Models
         [Required]
         [MaxLength(11)]
         public string cpf { get; set; }
-        public string token { get; set; }
-
         public bool active { get; set; }
         [Column("created_date")]
         public DateTime createdDate { get; set; }
-
         public string role { get; set; }
 
     }

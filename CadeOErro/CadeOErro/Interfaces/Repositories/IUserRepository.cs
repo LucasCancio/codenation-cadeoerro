@@ -10,6 +10,6 @@ namespace CadeOErro.Server.Interfaces.Repositories
         Task<User> FindById(int id);
         Task<User> FindByEmailAndPassword(string email, string password);
         Task<User> Save(User user);
-        void Delete(int id);
+        void Delete(User user);
     }
 }
