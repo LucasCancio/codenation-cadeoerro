@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Maps\" />
+    <Folder Include="DTOs\Log\" />
   </ItemGroup>
 
   <ItemGroup>

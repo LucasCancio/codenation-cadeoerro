@@ -4,7 +4,6 @@ using CadeOErro.Server.Interfaces.Repositories;
 using CadeOErro.Server.Interfaces.Services;
 using CadeOErro.Server.Models;
 using CadeOErro.Server.Util.Exceptions;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,42 +19,42 @@ namespace CadeOErro.Server.Services
             this._mapper = mapper;
         }
 
-        public async Task<List<UserViewDTO>> GetAll()
+        public List<UserViewDTO> GetAll()
         {
-            List<User> users = await _repository.GetAll();
+            List<User> users = _repository.GetAll();
             return _mapper.Map<List<UserViewDTO>>(users);
         }
 
-        public async Task<UserViewDTO> GetById(int id)
+        public UserViewDTO GetById(int id)
         {
-            User user = await _repository.FindById(id);
+            User user = _repository.FindById(id);
             if (user == null) throw new UserNotFoundException();
 
             return _mapper.Map<UserViewDTO>(user);
         }
 
-        public async Task<UserSaveDTO> Create(UserSaveDTO userToCreate)
+        public async Task<UserSaveDTO> CreateAsync(UserSaveDTO userToCreate)
         {
             User user = _mapper.Map<User>(userToCreate);
-            await _repository.Save(user);
+            await _repository.SaveAsync(user);
 
             return userToCreate;
         }
 
-        public async Task<UserSaveDTO> Update(UserSaveDTO userToUpdate)
+        public async Task<UserSaveDTO> UpdateAsync(UserSaveDTO userToUpdate)
         {
-            User user = await _repository.FindById(userToUpdate.id);
+            User user =  _repository.FindById(userToUpdate.id);
             if (user == null) throw new UserNotFoundException();
 
             user = _mapper.Map<User>(userToUpdate);
-            await _repository.Save(user);
+            await _repository.SaveAsync(user);
 
             return userToUpdate;
         }
 
-        async Task IUserService.Delete(int id)
+        public void Delete(int id)
         {
-            User user = await _repository.FindById(id);
+            User user = _repository.FindById(id);
 
             if (user == null) throw new UserNotFoundException();
 

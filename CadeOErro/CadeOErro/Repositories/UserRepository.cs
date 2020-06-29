@@ -16,24 +16,27 @@ namespace CadeOErro.Server.Repositories
         {
             this._context = context;
         }
-        public async Task<List<User>> GetAll()
+        public List<User> GetAll()
         {
-            return await _context.Users.ToListAsync();
+            return _context.Users.ToList();
         }
-        public async Task<User> FindById(int id)
+        public User FindById(int id)
         {
-            return await _context.Users
+
+            var user = _context.Users
                 .Where(user => user.id == id)
-                .FirstOrDefaultAsync();
+                .FirstOrDefault();
+
+            return user;
         }
-        public async Task<User> FindByEmailAndPassword(string email, string password)
+        public async Task<User> FindByEmailAndPasswordAsync(string email, string password)
         {
             return await _context.Users
                 .Where(user => user.email.ToLower() == email.ToLower() && user.password == password)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<User> Save(User user)
+        public async Task<User> SaveAsync(User user)
         {
             var state = user.id == 0 ? EntityState.Added : EntityState.Modified;
 

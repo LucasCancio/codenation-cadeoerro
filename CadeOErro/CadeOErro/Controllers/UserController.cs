@@ -26,19 +26,19 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpGet]
-        public async Task<ObjectResult> Get()
+        public ObjectResult Get()
         {
-            List<UserViewDTO> users = await _service.GetAll();
+            List<UserViewDTO> users = _service.GetAll();
             return Ok(users);
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ObjectResult> Get(int id)
+        public ObjectResult Get(int id)
         {
             try
             {
-                UserViewDTO user = await _service.GetById(id);
+                UserViewDTO user = _service.GetById(id);
                 return Ok(user);
             }
             catch (UserNotFoundException ex)
@@ -58,7 +58,7 @@ namespace CadeOErro.Server.Controllers
         {
             try
             {
-                var userCreated = await _service.Create(user);
+                var userCreated = await _service.CreateAsync(user);
                 return StatusCode(201, userCreated);
             }
             catch (Exception ex)
@@ -69,12 +69,12 @@ namespace CadeOErro.Server.Controllers
         }
 
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<ObjectResult> Put([FromBody] UserSaveDTO user)
         {
             try
             {
-                var userUpdated = await _service.Update(user);
+                var userUpdated = await _service.UpdateAsync(user);
                 return Ok(userUpdated);
             }
             catch (UserNotFoundException ex)

@@ -4,14 +4,16 @@ using CadeOErro.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CadeOErro.Server.Migrations
 {
     [DbContext(typeof(CadeOErroContext))]
-    partial class CadeOErroContextModelSnapshot : ModelSnapshot
+    [Migration("20200629025835_MudandoCamposEmUser")]
+    partial class MudandoCamposEmUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -6,10 +6,10 @@ namespace CadeOErro.Server.Interfaces.Repositories
 {
     public interface IUserRepository
     {
-        Task<List<User>> GetAll();
-        Task<User> FindById(int id);
-        Task<User> FindByEmailAndPassword(string email, string password);
-        Task<User> Save(User user);
+        List<User> GetAll();
+        User FindById(int id);
+        Task<User> FindByEmailAndPasswordAsync(string email, string password);
+        Task<User> SaveAsync(User user);
         void Delete(User user);
     }
 }

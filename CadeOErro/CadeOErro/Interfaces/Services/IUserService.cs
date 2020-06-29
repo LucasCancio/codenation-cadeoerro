@@ -6,11 +6,11 @@ namespace CadeOErro.Server.Interfaces.Services
 {
     public interface IUserService
     {
-        Task<List<UserViewDTO>> GetAll();
-        Task<UserViewDTO> GetById(int id);
-        Task<UserSaveDTO> Update(UserSaveDTO userToUpdate);
-        Task<UserSaveDTO> Create(UserSaveDTO userToCreate);
-        Task Delete(int id);
+        List<UserViewDTO> GetAll();
+        UserViewDTO GetById(int id);
+        Task<UserSaveDTO> UpdateAsync(UserSaveDTO userToUpdate);
+        Task<UserSaveDTO> CreateAsync(UserSaveDTO userToCreate);
+        void Delete(int id);
 
     }
 }

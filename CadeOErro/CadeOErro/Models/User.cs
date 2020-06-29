@@ -16,14 +16,28 @@ namespace CadeOErro.Server.Models
         [EmailAddress]
         public string email { get; set; }
         [Required]
+        public string name { get; set; }
+        [Required]
         public string password { get; set; }
         [Required]
         [MaxLength(11)]
         public string cpf { get; set; }
-        public bool active { get; set; }
         [Column("created_date")]
         public DateTime createdDate { get; set; }
-        public string role { get; set; }
+
+        private string _role;
+        public string role
+        {
+            get { return _role; }
+            set { _role = ValidateRole(value); }
+        }
+
+        private string ValidateRole(string role)
+        {
+            role = role.ToLower();
+            if (role != "admin" || role != "user") role = "user";
+            return role;
+        }
 
     }
 }
