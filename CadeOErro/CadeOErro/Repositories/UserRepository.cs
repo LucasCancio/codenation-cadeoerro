@@ -29,19 +29,19 @@ namespace CadeOErro.Server.Repositories
 
             return user;
         }
-        public async Task<User> FindByEmailAndPasswordAsync(string email, string password)
+        public User FindByEmailAndPasswordAsync(string email, string password)
         {
-            return await _context.Users
+            return _context.Users
                 .Where(user => user.email.ToLower() == email.ToLower() && user.password == password)
-                .FirstOrDefaultAsync();
+                .FirstOrDefault();
         }
 
-        public async Task<User> SaveAsync(User user)
+        public User Save(User user)
         {
             var state = user.id == 0 ? EntityState.Added : EntityState.Modified;
 
             _context.Entry(user).State = state;
-            await _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
             return user;
         }
 

@@ -20,11 +20,11 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ObjectResult> Login([FromBody] LoginDTO dto)
+        public ObjectResult Login([FromBody] LoginDTO dto)
         {
             try
             {
-                AuthenticateDTO authenticate = await _service.Authenticate(dto.email, dto.password);
+                AuthenticateDTO authenticate = _service.Authenticate(dto.email, dto.password);
                 return Ok(authenticate);
             }
             catch (UserNotFoundException ex)

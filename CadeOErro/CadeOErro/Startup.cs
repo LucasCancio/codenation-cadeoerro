@@ -59,6 +59,16 @@ namespace CadeOErro.Server
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "CadeOErro API",
+                    Version = "v1",
+                    Description = "Serviço de gerenciamento de Logs gerados pelos ambientes cadastrados",
+                });
+            });
         }
 
         public void AddAuthentication(IServiceCollection services)
@@ -107,6 +117,9 @@ namespace CadeOErro.Server
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "CadeOErro API"));
         }
     }
 }

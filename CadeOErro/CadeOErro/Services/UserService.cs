@@ -33,21 +33,21 @@ namespace CadeOErro.Server.Services
             return _mapper.Map<UserViewDTO>(user);
         }
 
-        public async Task<UserSaveDTO> CreateAsync(UserSaveDTO userToCreate)
+        public UserSaveDTO Create(UserSaveDTO userToCreate)
         {
             User user = _mapper.Map<User>(userToCreate);
-            await _repository.SaveAsync(user);
+            _repository.Save(user);
 
             return userToCreate;
         }
 
-        public async Task<UserSaveDTO> UpdateAsync(UserSaveDTO userToUpdate)
+        public UserSaveDTO Update(UserSaveDTO userToUpdate)
         {
-            User user =  _repository.FindById(userToUpdate.id);
+            User user = _repository.FindById(userToUpdate.id);
             if (user == null) throw new UserNotFoundException();
 
             user = _mapper.Map<User>(userToUpdate);
-            await _repository.SaveAsync(user);
+            _repository.Save(user);
 
             return userToUpdate;
         }

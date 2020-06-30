@@ -5,6 +5,6 @@ namespace CadeOErro.Server.Interfaces.Services
 {
     public interface ILoginService
     {
-       Task<AuthenticateDTO> Authenticate(string email, string password);
+       AuthenticateDTO Authenticate(string email, string password);
     }
 }

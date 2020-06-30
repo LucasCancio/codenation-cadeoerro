@@ -1,6 +1,5 @@
 ﻿using CadeOErro.Server.DTOs.User;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace CadeOErro.Server.Interfaces.Services
 {
@@ -8,8 +7,8 @@ namespace CadeOErro.Server.Interfaces.Services
     {
         List<UserViewDTO> GetAll();
         UserViewDTO GetById(int id);
-        Task<UserSaveDTO> UpdateAsync(UserSaveDTO userToUpdate);
-        Task<UserSaveDTO> CreateAsync(UserSaveDTO userToCreate);
+        UserSaveDTO Update(UserSaveDTO userToUpdate);
+        UserSaveDTO Create(UserSaveDTO userToCreate);
         void Delete(int id);
 
     }

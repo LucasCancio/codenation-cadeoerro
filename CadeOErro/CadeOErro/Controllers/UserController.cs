@@ -54,11 +54,11 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpPost]
-        public async Task<ObjectResult> Post([FromBody] UserSaveDTO user)
+        public ObjectResult Post([FromBody] UserSaveDTO user)
         {
             try
             {
-                var userCreated = await _service.CreateAsync(user);
+                var userCreated = _service.Create(user);
                 return StatusCode(201, userCreated);
             }
             catch (Exception ex)
@@ -70,11 +70,11 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpPut]
-        public async Task<ObjectResult> Put([FromBody] UserSaveDTO user)
+        public ObjectResult Put([FromBody] UserSaveDTO user)
         {
             try
             {
-                var userUpdated = await _service.UpdateAsync(user);
+                var userUpdated = _service.Update(user);
                 return Ok(userUpdated);
             }
             catch (UserNotFoundException ex)

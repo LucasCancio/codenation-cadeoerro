@@ -8,8 +8,8 @@ namespace CadeOErro.Server.Interfaces.Repositories
     {
         List<User> GetAll();
         User FindById(int id);
-        Task<User> FindByEmailAndPasswordAsync(string email, string password);
-        Task<User> SaveAsync(User user);
+        User FindByEmailAndPasswordAsync(string email, string password);
+        User Save(User user);
         void Delete(User user);
     }
 }
