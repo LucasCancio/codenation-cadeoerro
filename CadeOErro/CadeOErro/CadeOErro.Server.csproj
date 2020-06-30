@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Maps\" />
     <Folder Include="DTOs\Log\" />
   </ItemGroup>
 
@@ -25,6 +24,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.OpenApi" Version="1.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CadeOErro.Data\CadeOErro.Data.csproj" />
+    <ProjectReference Include="..\CadeOErro.Domain\CadeOErro.Domain.csproj" />
   </ItemGroup>
 
 

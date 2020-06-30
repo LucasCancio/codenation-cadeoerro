@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using CadeOErro.Server.DTOs.User;
-using CadeOErro.Server.Interfaces.Repositories;
+using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Server.Interfaces.Services;
-using CadeOErro.Server.Models;
-using CadeOErro.Server.Util.Exceptions;
+using CadeOErro.Domain.Models;
+using CadeOErro.Domain.Util.Exceptions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

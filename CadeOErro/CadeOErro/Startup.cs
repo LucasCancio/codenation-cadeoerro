@@ -1,10 +1,9 @@
 using AutoMapper;
+using CadeOErro.Data;
+using CadeOErro.Data.Repositories;
+using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Server.Config;
-using CadeOErro.Server.Data;
-using CadeOErro.Server.Interfaces.Repositories;
 using CadeOErro.Server.Interfaces.Services;
-using CadeOErro.Server.Models;
-using CadeOErro.Server.Repositories;
 using CadeOErro.Server.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -52,12 +51,14 @@ namespace CadeOErro.Server
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-
+            //Repositories
+            services.AddScoped<IEnvironmentRepository, EnvironmentRepository>();
+            services.AddScoped<ILogLevelRepository, LogLevelRepository>();
+            services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
+            //Services
             services.AddScoped<ILoginService, LoginService>();
-
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddSwaggerGen(options =>

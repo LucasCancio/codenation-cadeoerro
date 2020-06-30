@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
+using CadeOErro.Domain.Util.Exceptions;
 using CadeOErro.Server.DTOs.Login;
 using CadeOErro.Server.Interfaces.Services;
-using CadeOErro.Server.Util.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

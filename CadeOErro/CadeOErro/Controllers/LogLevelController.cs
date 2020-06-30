@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CadeOErro.Server.Interfaces.Repositories;
-using CadeOErro.Server.Models;
+using AutoMapper;
+using CadeOErro.Domain.Interfaces.Repositories;
+using CadeOErro.Domain.Models;
+using CadeOErro.Server.DTOs.LogLevel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CadeOErro.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class LogLevelController : ControllerBase
     {
         private readonly ILogLevelRepository _repository;
-        public LogLevelController(ILogLevelRepository repository)
+        private readonly IMapper _mapper;
+        public LogLevelController(ILogLevelRepository repository, IMapper mapper)
         {
             this._repository = repository;
+            this._mapper = mapper;
         }
 
         [HttpGet]
@@ -26,7 +28,8 @@ namespace CadeOErro.Server.Controllers
             try
             {
                 List<LogLevel> logLevels = _repository.GetAll();
-                return Ok(logLevels);
+                var logLevelsDTOs = _mapper.Map<List<LogLevelDTO>>(logLevels);
+                return Ok(logLevelsDTOs);
             }
             catch (Exception ex)
             {
@@ -41,7 +44,8 @@ namespace CadeOErro.Server.Controllers
             try
             {
                 LogLevel logLevel = _repository.FindById(id);
-                return Ok(logLevel);
+                var logLevelDTO = _mapper.Map<LogLevelDTO>(logLevel);
+                return Ok(logLevelDTO);
             }
             catch (Exception ex)
             {
@@ -51,10 +55,11 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpPost]
-        public ObjectResult Post([FromBody] LogLevel logLevel)
+        public ObjectResult Post([FromBody] LogLevelDTO logLevelDTO)
         {
             try
             {
+                var logLevel = _mapper.Map<LogLevel>(logLevelDTO);
                 _repository.Create(logLevel);
                 return Ok(logLevel);
             }

@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadeOErro.Server", "CadeOEr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadeOErro.Tests", "CadeOErro.Tests\CadeOErro.Tests.csproj", "{DE76BF09-BA78-4F52-9234-215D7EA979FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadeOErro.Domain", "CadeOErro.Domain\CadeOErro.Domain.csproj", "{8964E899-10AD-4A91-B64E-162C93F5B201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadeOErro.Data", "CadeOErro.Data\CadeOErro.Data.csproj", "{4AE6D0D0-A850-4288-92CD-44BAE19D22F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{DE76BF09-BA78-4F52-9234-215D7EA979FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE76BF09-BA78-4F52-9234-215D7EA979FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE76BF09-BA78-4F52-9234-215D7EA979FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8964E899-10AD-4A91-B64E-162C93F5B201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8964E899-10AD-4A91-B64E-162C93F5B201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8964E899-10AD-4A91-B64E-162C93F5B201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8964E899-10AD-4A91-B64E-162C93F5B201}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AE6D0D0-A850-4288-92CD-44BAE19D22F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AE6D0D0-A850-4288-92CD-44BAE19D22F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AE6D0D0-A850-4288-92CD-44BAE19D22F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AE6D0D0-A850-4288-92CD-44BAE19D22F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

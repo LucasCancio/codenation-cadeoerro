@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
-using CadeOErro.Server.Config;
-using CadeOErro.Server.DTOs.Login;
-using CadeOErro.Server.Interfaces.Repositories;
+using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Server.Interfaces.Services;
-using CadeOErro.Server.Models;
-using CadeOErro.Server.Util.Exceptions;
-using Microsoft.IdentityModel.Tokens;
+using CadeOErro.Domain.Models;
+using CadeOErro.Domain.Util.Exceptions;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
+using CadeOErro.Server.DTOs.Login;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using CadeOErro.Server.Config;
 
 namespace CadeOErro.Server.Services
 {

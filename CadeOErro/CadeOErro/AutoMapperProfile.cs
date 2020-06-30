@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using CadeOErro.Domain.Models;
+using CadeOErro.Server.DTOs;
 using CadeOErro.Server.DTOs.Login;
+using CadeOErro.Server.DTOs.LogLevel;
 using CadeOErro.Server.DTOs.User;
-using CadeOErro.Server.Models;
 
 namespace CadeOErro.Server
 {
@@ -14,6 +16,12 @@ namespace CadeOErro.Server
             CreateMap<User, UserSaveDTO>()
                 .ReverseMap();
             CreateMap<User, UserViewDTO>()
+                .ReverseMap();
+
+            CreateMap<Environment, EnvironmentDTO>()
+                .ReverseMap();
+
+            CreateMap<LogLevel, LogLevelDTO>()
                 .ReverseMap();
         }
     }
