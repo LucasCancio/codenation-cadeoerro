@@ -23,10 +23,17 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpGet]
-        public ObjectResult Get()
+        public ObjectResult GetAll()
         {
-            List<UserViewDTO> users = _service.GetAll();
-            return Ok(users);
+            try
+            {
+                List<UserViewDTO> users = _service.GetAll();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Ocorreu um erro inesperado: {ex.Message}");
+            }
         }
 
 

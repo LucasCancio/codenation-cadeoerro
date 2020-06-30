@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CadeOErro.Domain.Models
 {
@@ -14,6 +11,8 @@ namespace CadeOErro.Domain.Models
         public int id { get; set; }
         [Required]
         public string description { get; set; }
+        [Required]
+        public int priority { get; set; }
 
         public virtual ICollection<Log> logs { get; set; }
     }
