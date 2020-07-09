@@ -14,9 +14,11 @@ namespace CadeOErro.Server
         {
             CreateMap<User, AuthenticateDTO>()
                 .ReverseMap();
+            CreateMap<User, UserViewDTO>()
+                .ReverseMap();
             CreateMap<User, UserUpdateDTO>()
                 .ReverseMap();
-            CreateMap<User, UserViewDTO>()
+            CreateMap<User, UserCreateDTO>()
                 .ReverseMap();
 
             CreateMap<Environment, EnvironmentDTO>()
@@ -25,9 +27,11 @@ namespace CadeOErro.Server
             CreateMap<LogLevel, LogLevelDTO>()
                 .ReverseMap();
 
-            CreateMap<LogViewDTO, Log>()
+            CreateMap<Log, LogViewDTO>()
                 .ReverseMap();
-            CreateMap<LogUpdateDTO, Log>()
+            CreateMap<Log, LogUpdateDTO>()
+                .ReverseMap();
+            CreateMap<Log, LogCreateDTO>()
                 .ReverseMap();
         }
     }
