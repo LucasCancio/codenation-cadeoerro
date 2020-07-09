@@ -38,7 +38,7 @@ namespace CadeOErro.Data.Repositories
             var state = user.id == 0 ? EntityState.Added : EntityState.Modified;
 
             _context.Entry(user).State = state;
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return user;
         }
 

@@ -28,7 +28,7 @@ namespace CadeOErro.Server.Controllers
             try
             {
                 List<LogLevel> logLevels = _repository.GetAll();
-                var logLevelsDTOs = _mapper.Map<List<LogLevelDTO>>(logLevels);
+                var logLevelsDTOs = _mapper.Map<List<LogLevelViewDTO>>(logLevels);
                 return Ok(logLevelsDTOs);
             }
             catch (Exception ex)
@@ -44,7 +44,7 @@ namespace CadeOErro.Server.Controllers
             try
             {
                 LogLevel logLevel = _repository.FindById(id);
-                var logLevelDTO = _mapper.Map<LogLevelDTO>(logLevel);
+                var logLevelDTO = _mapper.Map<LogLevelViewDTO>(logLevel);
                 return Ok(logLevelDTO);
             }
             catch (Exception ex)
@@ -55,13 +55,13 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpPost]
-        public ObjectResult Post([FromBody] LogLevelDTO logLevelDTO)
+        public ObjectResult Post([FromBody] LogLevelCreateDTO logLevelDTO)
         {
             try
             {
                 var logLevel = _mapper.Map<LogLevel>(logLevelDTO);
                 _repository.Create(logLevel);
-                return Ok(logLevel);
+                return Ok(_mapper.Map<LogLevelViewDTO>(logLevel));
             }
             catch (Exception ex)
             {

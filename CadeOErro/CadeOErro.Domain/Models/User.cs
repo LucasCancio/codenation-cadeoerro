@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CadeOErro.Domain.Util.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,8 +16,9 @@ namespace CadeOErro.Domain.Models
         [Required]
         [EmailAddress]
         public string email { get; set; }
+        private string _name;
         [Required]
-        public string name { get; set; }
+        public string name { get { return _name; } set { _name = value.ToFirstLetterUpper(); } }
         [Required]
         public string password { get; set; }
         [Required]
@@ -24,20 +26,9 @@ namespace CadeOErro.Domain.Models
         public string cpf { get; set; }
         [Column("created_date")]
         public DateTime createdDate { get; set; }
+        public string role { get; set; }
 
-        private string _role;
-        public string role
-        {
-            get { return _role; }
-            set { _role = ValidateRole(value); }
-        }
 
-        private string ValidateRole(string role)
-        {
-            role = role.ToLower();
-            if (role != "admin" || role != "user") role = "user";
-            return role;
-        }
 
     }
 }

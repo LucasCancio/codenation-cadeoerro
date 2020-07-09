@@ -70,7 +70,7 @@ namespace CadeOErro.Server.Services
 
 
 
-        public LogUpdateDTO Update(LogUpdateDTO logToUpdate)
+        public LogViewDTO Update(LogUpdateDTO logToUpdate)
         {
             Log log = _repository.FindById(logToUpdate.id);
             if (log == null) throw new LogNotFoundException();
@@ -78,15 +78,15 @@ namespace CadeOErro.Server.Services
             log = _mapper.Map<Log>(logToUpdate);
             _repository.Save(log);
 
-            return logToUpdate;
+            return _mapper.Map<LogViewDTO>(log);
         }
 
-        public LogCreateDTO Create(LogCreateDTO logToCreate)
+        public LogViewDTO Create(LogCreateDTO logToCreate)
         {
             Log log = _mapper.Map<Log>(logToCreate);
             _repository.Save(log);
 
-            return logToCreate;
+            return _mapper.Map<LogViewDTO>(log);
         }
 
         public void Delete(int id)

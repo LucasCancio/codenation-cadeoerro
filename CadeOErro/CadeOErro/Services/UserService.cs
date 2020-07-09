@@ -33,15 +33,15 @@ namespace CadeOErro.Server.Services
             return _mapper.Map<UserViewDTO>(user);
         }
 
-        public UserCreateDTO Create(UserCreateDTO userToCreate)
+        public UserViewDTO Create(UserCreateDTO userToCreate)
         {
             User user = _mapper.Map<User>(userToCreate);
             _repository.Save(user);
 
-            return userToCreate;
+            return _mapper.Map<UserViewDTO>(user);
         }
 
-        public UserUpdateDTO Update(UserUpdateDTO userToUpdate)
+        public UserViewDTO Update(UserUpdateDTO userToUpdate)
         {
             User user = _repository.FindById(userToUpdate.id);
             if (user == null) throw new UserNotFoundException();
@@ -49,7 +49,7 @@ namespace CadeOErro.Server.Services
             user = _mapper.Map<User>(userToUpdate);
             _repository.Save(user);
 
-            return userToUpdate;
+            return _mapper.Map<UserViewDTO>(user);
         }
 
         public void Delete(int id)

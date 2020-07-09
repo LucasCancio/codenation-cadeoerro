@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Server.DTOs;
+using CadeOErro.Server.DTOs.EnvironmentDTO;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -26,7 +27,7 @@ namespace CadeOErro.Server.Controllers
             try
             {
                 List<Domain.Models.Environment> logLevels = _repository.GetAll();
-                var logLevelsDTOs = _mapper.Map<List<EnvironmentDTO>>(logLevels);
+                var logLevelsDTOs = _mapper.Map<List<EnvironmentViewDTO>>(logLevels);
                 return Ok(logLevelsDTOs);
             }
             catch (Exception ex)
@@ -42,7 +43,7 @@ namespace CadeOErro.Server.Controllers
             try
             {
                 Domain.Models.Environment logLevel = _repository.FindById(id);
-                var logLevelDTO = _mapper.Map<EnvironmentDTO>(logLevel);
+                var logLevelDTO = _mapper.Map<EnvironmentViewDTO>(logLevel);
                 return Ok(logLevelDTO);
             }
             catch (Exception ex)
@@ -53,13 +54,13 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpPost]
-        public ObjectResult Post([FromBody] EnvironmentDTO environmentDTO)
+        public ObjectResult Post([FromBody] EnvironmentCreateDTO environmentDTO)
         {
             try
             {
                 var environment = _mapper.Map<Domain.Models.Environment>(environmentDTO);
                 _repository.Create(environment);
-                return Ok(environment);
+                return Ok(_mapper.Map<EnvironmentViewDTO>(environment));
             }
             catch (Exception ex)
             {

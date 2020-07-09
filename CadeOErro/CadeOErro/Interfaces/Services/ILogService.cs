@@ -15,8 +15,8 @@ namespace CadeOErro.Server.Interfaces.Services
         List<LogViewDTO> OrderByLevel(List<LogViewDTO> logs);
         List<LogViewDTO> OrderByFrequency(List<LogViewDTO> logs);
 
-        LogUpdateDTO Update(LogUpdateDTO logToUpdate);
-        LogCreateDTO Create(LogCreateDTO logToCreate);
+        LogViewDTO Update(LogUpdateDTO logToUpdate);
+        LogViewDTO Create(LogCreateDTO logToCreate);
         void Delete(int id);
     }
 }

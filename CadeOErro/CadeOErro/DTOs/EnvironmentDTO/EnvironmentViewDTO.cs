@@ -1,6 +1,6 @@
 ﻿namespace CadeOErro.Server.DTOs
 {
-    public class EnvironmentDTO
+    public class EnvironmentViewDTO
     {
         public int id { get; set; }
         public string shortName { get; set; }

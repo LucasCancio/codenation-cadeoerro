@@ -77,7 +77,7 @@ namespace CadeOErro.Data.Repositories
             var state = log.id == 0 ? EntityState.Added : EntityState.Modified;
 
             _context.Entry(log).State = state;
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return log;
         }
 

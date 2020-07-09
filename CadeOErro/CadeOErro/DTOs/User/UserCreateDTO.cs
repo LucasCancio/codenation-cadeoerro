@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CadeOErro.Domain.Util.Validators;
+using System.ComponentModel.DataAnnotations;
 
 namespace CadeOErro.Server.DTOs.User
 {
@@ -11,8 +12,10 @@ namespace CadeOErro.Server.DTOs.User
         [Required]
         public string password { get; set; }
         [Required]
+        [CPFValidator(ErrorMessage = "CPF inválido")]
         public string cpf { get; set; }
         [Required]
+        [RoleValidator(ErrorMessage = "Role inválida! Escolha entre 'admin' ou 'user'")]
         public string role { get; set; }
     }
 }
