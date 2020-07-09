@@ -11,8 +11,6 @@ namespace CadeOErro.Domain.Models
         public int id { get; set; }
         [Required]
         public string description { get; set; }
-        [Required]
-        public int priority { get; set; }
 
         public virtual ICollection<Log> logs { get; set; }
     }

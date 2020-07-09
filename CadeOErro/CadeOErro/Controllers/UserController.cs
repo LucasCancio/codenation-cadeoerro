@@ -58,7 +58,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpPost]
-        public ObjectResult Post([FromBody] UserSaveDTO user)
+        public ObjectResult Post([FromBody] UserCreateDTO user)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpPut]
-        public ObjectResult Put([FromBody] UserSaveDTO user)
+        public ObjectResult Put([FromBody] UserUpdateDTO user)
         {
             try
             {

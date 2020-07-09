@@ -26,7 +26,7 @@ namespace CadeOErro.Data.Repositories
 
             return user;
         }
-        public User FindByEmailAndPasswordAsync(string email, string password)
+        public User FindByEmailAndPassword(string email, string password)
         {
             return _context.Users
                 .Where(user => user.email.ToLower() == email.ToLower() && user.password == password)

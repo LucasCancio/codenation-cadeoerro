@@ -7,8 +7,8 @@ namespace CadeOErro.Server.Interfaces.Services
     {
         List<UserViewDTO> GetAll();
         UserViewDTO GetById(int id);
-        UserSaveDTO Update(UserSaveDTO userToUpdate);
-        UserSaveDTO Create(UserSaveDTO userToCreate);
+        UserUpdateDTO Update(UserUpdateDTO userToUpdate);
+        UserCreateDTO Create(UserCreateDTO userToCreate);
         void Delete(int id);
 
     }

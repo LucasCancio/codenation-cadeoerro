@@ -8,7 +8,7 @@ namespace CadeOErro.Domain.Interfaces.Repositories
     {
         List<User> GetAll();
         User FindById(int id);
-        User FindByEmailAndPasswordAsync(string email, string password);
+        User FindByEmailAndPassword(string email, string password);
         User Save(User user);
         void Delete(User user);
     }
