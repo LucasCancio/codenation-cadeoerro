@@ -36,5 +36,22 @@ namespace CadeOErro.Server.Controllers
             }
 
         }
+
+        //[HttpGet]
+        //public ObjectResult RecoverPassword()
+        //{
+        //    try
+        //    {
+              
+        //    }
+        //    catch (UserNotFoundException ex)
+        //    {
+        //        return NotFound(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Ocorreu um erro inesperado: {ex.Message}");
+        //    }
+        //}
     }
 }

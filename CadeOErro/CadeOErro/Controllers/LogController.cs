@@ -12,6 +12,7 @@ namespace CadeOErro.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]//////////
     public class LogController : ControllerBase
     {
         private readonly ILogService _service;
@@ -34,6 +35,24 @@ namespace CadeOErro.Server.Controllers
             }
         }
 
+        [HttpGet("{id}/filed/{status}")]
+        public ObjectResult ChangeFileStatus(int id, bool status)
+        {
+            try
+            {
+                LogViewDTO log = _service.UpdateFileStatus(id, status);
+                return Ok(log);
+            }
+            catch (LogNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Ocorreu um erro inesperado: {ex.Message}");
+            }
+        }
+
 
         [HttpGet("{id}")]
         public ObjectResult Get(int id)
@@ -41,8 +60,11 @@ namespace CadeOErro.Server.Controllers
             try
             {
                 LogViewDTO log = _service.GetById(id);
-                if (log == null) return NotFound("Log não encontrado!");
                 return Ok(log);
+            }
+            catch (LogNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -153,7 +175,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public ObjectResult Delete(int id)
         {
             try

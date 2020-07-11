@@ -20,7 +20,7 @@ namespace CadeOErro.Domain.Models
         public string source { get; set; }
         [Required]
         public string stackTrace { get; set; }
-        public int status { get; set; }
+        public bool filed { get; set; }
         [Column("filed_date")]
         public DateTime filedDate { get; set; }
         [Column("created_date")]

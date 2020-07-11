@@ -63,6 +63,7 @@ namespace CadeOErro.Server
 
             //Services
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ILogService, LogService>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddSwaggerGen(options =>

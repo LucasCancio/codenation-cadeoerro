@@ -11,6 +11,7 @@ namespace CadeOErro.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]//////////
     public class LogLevelController : ControllerBase
     {
         private readonly ILogLevelRepository _repository;
@@ -54,7 +55,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public ObjectResult Post([FromBody] LogLevelCreateDTO logLevelDTO)
         {
             try
@@ -71,7 +72,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public ObjectResult Delete(int id)
         {
             try

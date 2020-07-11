@@ -75,7 +75,7 @@ namespace CadeOErro.Server.Services
             Log log = _repository.FindById(logToUpdate.id);
             if (log == null) throw new LogNotFoundException();
 
-            log = _mapper.Map(logToUpdate,log);
+            log = _mapper.Map(logToUpdate, log);
             _repository.Save(log);
 
             return _mapper.Map<LogViewDTO>(log);
@@ -96,6 +96,19 @@ namespace CadeOErro.Server.Services
             if (log == null) throw new LogNotFoundException();
 
             _repository.Delete(log);
+        }
+
+        public LogViewDTO UpdateFileStatus(int id, bool status)
+        {
+            Log log = _repository.FindById(id);
+            if (log == null) throw new LogNotFoundException();
+
+            log.filed = status;
+            if (log.filed) log.filedDate = DateTime.Now;
+
+            _repository.Save(log);
+
+            return _mapper.Map<LogViewDTO>(log);
         }
     }
 }

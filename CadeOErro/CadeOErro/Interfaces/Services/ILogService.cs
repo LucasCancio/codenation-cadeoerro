@@ -17,6 +17,7 @@ namespace CadeOErro.Server.Interfaces.Services
 
         LogViewDTO Update(LogUpdateDTO logToUpdate);
         LogViewDTO Create(LogCreateDTO logToCreate);
+        LogViewDTO UpdateFileStatus(int id, bool status);
         void Delete(int id);
     }
 }
