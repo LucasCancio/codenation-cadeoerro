@@ -57,7 +57,5 @@ namespace CadeOErro.Data.Repositories
             _context.Users.Remove(user);
             _context.SaveChanges();
         }
-
-
     }
 }

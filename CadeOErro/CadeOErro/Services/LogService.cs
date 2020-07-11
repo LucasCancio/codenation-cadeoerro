@@ -75,7 +75,7 @@ namespace CadeOErro.Server.Services
             Log log = _repository.FindById(logToUpdate.id);
             if (log == null) throw new LogNotFoundException();
 
-            log = _mapper.Map<Log>(logToUpdate);
+            log = _mapper.Map(logToUpdate,log);
             _repository.Save(log);
 
             return _mapper.Map<LogViewDTO>(log);

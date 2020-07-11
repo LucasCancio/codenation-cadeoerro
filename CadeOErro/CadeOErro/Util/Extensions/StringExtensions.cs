@@ -12,10 +12,10 @@
 
             foreach (var word in words)
             {
-                result += word.Substring(0, 1).ToUpper() + word.Substring(1);
+                result += word.Substring(0, 1).ToUpper() + word.Substring(1) + " ";
             }
 
-            return result;
+            return result.Trim();
         }
     }
 }

@@ -4,6 +4,7 @@ using AutoMapper;
 using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Server.DTOs;
 using CadeOErro.Server.DTOs.EnvironmentDTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -11,6 +12,7 @@ namespace CadeOErro.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class EnvironmentController : ControllerBase
     {
         private readonly IEnvironmentRepository _repository;

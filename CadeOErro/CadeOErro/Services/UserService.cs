@@ -47,7 +47,7 @@ namespace CadeOErro.Server.Services
             User user = _repository.FindById(userToUpdate.id);
             if (user == null) throw new UserNotFoundException();
 
-            user = _mapper.Map<User>(userToUpdate);
+            user = _mapper.Map(userToUpdate, user);
             _repository.Save(user.FixFields());
 
             return _mapper.Map<UserViewDTO>(user);
