@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200711002232_AdicionandoCreatedDate.cs" />
+    <Compile Remove="Migrations\20200711002232_AdicionandoCreatedDate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Maps\" />
   </ItemGroup>
 

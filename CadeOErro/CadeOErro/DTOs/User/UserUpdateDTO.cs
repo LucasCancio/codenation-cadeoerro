@@ -1,4 +1,4 @@
-﻿using CadeOErro.Domain.Util.Validators;
+﻿using CadeOErro.Server.Util.Validators;
 using System.ComponentModel.DataAnnotations;
 
 namespace CadeOErro.Server.DTOs.User
@@ -10,11 +10,9 @@ namespace CadeOErro.Server.DTOs.User
         [Required]
         public string name { get; set; }
         [Required]
-        public string email { get; set; }
-        [Required]
         public string password { get; set; }
         [Required]
-        [RoleValidator(ErrorMessage = "Role inválida! Escolha entre 'admin' ou 'user'")]
+        [RoleValidator]
         public string role { get; set; }
     }
 }

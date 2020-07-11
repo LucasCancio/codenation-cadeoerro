@@ -1,15 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CadeOErro.Domain.Util.Validators
+namespace CadeOErro.Server.Util.Validators
 {
     public class CPFValidator : ValidationAttribute
     {
-        public override bool IsValid(object value)
+        protected override ValidationResult IsValid(
+          object value, ValidationContext validationContext)
         {
             if (value == null || string.IsNullOrEmpty(value.ToString()))
-                return true;
+                return ValidationResult.Success;
 
-            return CPFValidator.IsCpf(value.ToString());
+            if (!IsCpf(value.ToString()))
+            {
+                return new ValidationResult("CPF inválido");
+            }
+            return ValidationResult.Success;
         }
 
         public static bool IsCpf(string cpf)

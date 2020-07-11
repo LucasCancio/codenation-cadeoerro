@@ -26,10 +26,20 @@ namespace CadeOErro.Data.Repositories
 
             return user;
         }
+
+        public User FindByEmail(string email)
+        {
+            return _context.Users
+                .Where(user => user.email.ToLower() == email.ToLower())
+                .AsNoTracking()
+                .FirstOrDefault();
+        }
+
         public User FindByEmailAndPassword(string email, string password)
         {
             return _context.Users
                 .Where(user => user.email.ToLower() == email.ToLower() && user.password == password)
+                .AsNoTracking()
                 .FirstOrDefault();
         }
 
@@ -47,5 +57,7 @@ namespace CadeOErro.Data.Repositories
             _context.Users.Remove(user);
             _context.SaveChanges();
         }
+
+
     }
 }

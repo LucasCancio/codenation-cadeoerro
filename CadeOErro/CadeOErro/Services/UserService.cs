@@ -6,6 +6,7 @@ using CadeOErro.Domain.Models;
 using CadeOErro.Domain.Util.Exceptions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CadeOErro.Server.Util.Extensions;
 
 namespace CadeOErro.Server.Services
 {
@@ -36,7 +37,7 @@ namespace CadeOErro.Server.Services
         public UserViewDTO Create(UserCreateDTO userToCreate)
         {
             User user = _mapper.Map<User>(userToCreate);
-            _repository.Save(user);
+            _repository.Save(user.FixFields());
 
             return _mapper.Map<UserViewDTO>(user);
         }
@@ -47,7 +48,7 @@ namespace CadeOErro.Server.Services
             if (user == null) throw new UserNotFoundException();
 
             user = _mapper.Map<User>(userToUpdate);
-            _repository.Save(user);
+            _repository.Save(user.FixFields());
 
             return _mapper.Map<UserViewDTO>(user);
         }

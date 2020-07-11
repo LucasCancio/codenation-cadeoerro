@@ -1,4 +1,4 @@
-﻿namespace CadeOErro.Domain.Util.Extensions
+﻿namespace CadeOErro.Server.Util.Extensions
 {
     public static class StringExtensions
     {

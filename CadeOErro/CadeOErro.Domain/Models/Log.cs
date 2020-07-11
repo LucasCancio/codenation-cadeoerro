@@ -24,7 +24,8 @@ namespace CadeOErro.Domain.Models
         [Column("filed_date")]
         public DateTime filedDate { get; set; }
         [Column("created_date")]
-        public DateTime createdDate { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime createdDate { get; set; } = DateTime.UtcNow;
 
 
         [Column("id_user")]
