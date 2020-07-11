@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CadeOErro.Domain.Util.Exceptions;
 using CadeOErro.Server.DTOs.Log;
 using CadeOErro.Server.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -152,6 +153,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public ObjectResult Delete(int id)
         {
             try

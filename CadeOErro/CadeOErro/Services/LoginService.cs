@@ -25,12 +25,9 @@ namespace CadeOErro.Server.Services
 
         public  AuthenticateDTO Authenticate(string email, string password)
         {
-            //User user =  _repository.FindByEmailAndPassword(email, password);
+            User user =  _repository.FindByEmailAndPassword(email, password);
 
-            //if (user == null) throw new UserNotFoundException("Email e/ou senha inválidos!");
-
-            var user = new User() { email = email, password = password, role = "admin" };
-            if (user.email != "teste" && user.password != "senha123") throw new UserNotFoundException("Email e/ou senha inválidos!");
+            if (user == null) throw new UserNotFoundException("Email e/ou senha inválidos!");
 
             AuthenticateDTO authenticate = _mapper.Map<AuthenticateDTO>(user);
 

@@ -15,6 +15,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CadeOErro.Server
@@ -31,6 +34,7 @@ namespace CadeOErro.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
 
             services.AddMvc(config =>
@@ -69,17 +73,31 @@ namespace CadeOErro.Server
                     Version = "v1",
                     Description = "Serviço de gerenciamento de Logs gerados pelos ambientes cadastrados",
                 });
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    BearerFormat = "JWT",
+                    Description = "Por favor, insira um token JWT nesse campo",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer"
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme{
+                        Reference = new OpenApiReference{
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                        }
+                    },
+                    new string[] { }
+                }
+                });
             });
         }
 
         public void AddAuthentication(IServiceCollection services)
         {
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("user", policy => policy.RequireClaim("CadeOErro", "user"));
-                options.AddPolicy("admin", policy => policy.RequireClaim("CadeOErro", "admin"));
-            });
-
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
             services.AddAuthentication(x =>
             {
@@ -112,6 +130,12 @@ namespace CadeOErro.Server
 
             app.UseRouting();
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
