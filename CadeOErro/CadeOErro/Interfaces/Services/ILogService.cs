@@ -1,4 +1,5 @@
 ﻿using CadeOErro.Domain.Models;
+using CadeOErro.Domain.Pagination;
 using CadeOErro.Server.DTOs.Log;
 using System.Collections.Generic;
 
@@ -6,12 +7,12 @@ namespace CadeOErro.Server.Interfaces.Services
 {
     public interface ILogService
     {
-        List<LogViewDTO> GetAll();
+        PagedList<LogViewDTO> GetAll(PaginationParameters pagination);
         LogViewDTO GetById(int id);
-        List<LogViewDTO> GetByLevel(string environment, string level);
-        List<LogViewDTO> GetByEnvironment(string shortName);
-        List<LogViewDTO> GetByDescription(string environment, string description);
-        List<LogViewDTO> GetBySource(string environment, string source);
+        PagedList<LogViewDTO> GetByLevel(string environment, string level, PaginationParameters pagination);
+        PagedList<LogViewDTO> GetByEnvironment(string shortName, PaginationParameters pagination);
+        PagedList<LogViewDTO> GetByDescription(string environment, string description, PaginationParameters pagination);
+        PagedList<LogViewDTO> GetBySource(string environment, string source, PaginationParameters pagination);
         List<LogViewDTO> OrderByLevel(List<LogViewDTO> logs);
         List<LogViewDTO> OrderByFrequency(List<LogViewDTO> logs);
 

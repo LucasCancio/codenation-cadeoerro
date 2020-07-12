@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Domain.Models;
+using CadeOErro.Domain.Pagination;
 using CadeOErro.Domain.Util.Exceptions;
 using CadeOErro.Server.DTOs.Log;
 using CadeOErro.Server.Interfaces.Services;
@@ -20,10 +21,14 @@ namespace CadeOErro.Server.Services
             this._mapper = mapper;
         }
 
-        public List<LogViewDTO> GetAll()
+        public PagedList<LogViewDTO> GetAll(PaginationParameters pagination)
         {
             List<Log> logs = _repository.GetAll();
-            return _mapper.Map<List<LogViewDTO>>(logs);
+            List<LogViewDTO> viewLogs = _mapper.Map<List<LogViewDTO>>(logs);
+
+            return PagedList<LogViewDTO>.ToPagedList(viewLogs,
+            pagination.pageNumber,
+            pagination.pageSize);
         }
 
         public LogViewDTO GetById(int id)
@@ -34,38 +39,59 @@ namespace CadeOErro.Server.Services
             return _mapper.Map<LogViewDTO>(log);
         }
 
-        public List<LogViewDTO> GetByEnvironment(string shortName)
+        public PagedList<LogViewDTO> GetByEnvironment(string shortName, PaginationParameters pagination)
         {
             List<Log> logs = _repository.FindByEnvironment(shortName);
-            return _mapper.Map<List<LogViewDTO>>(logs);
+
+            List<LogViewDTO> viewLogs = _mapper.Map<List<LogViewDTO>>(logs);
+
+            return PagedList<LogViewDTO>.ToPagedList(viewLogs,
+            pagination.pageNumber,
+            pagination.pageSize);
         }
 
-        public List<LogViewDTO> GetByDescription(string environment, string description)
+        public PagedList<LogViewDTO> GetByDescription(string environment, string description, PaginationParameters pagination)
         {
             List<Log> logs = _repository.FindByEnvironmentAndDescription(environment, description);
-            return _mapper.Map<List<LogViewDTO>>(logs);
+            List<LogViewDTO> viewLogs = _mapper.Map<List<LogViewDTO>>(logs);
+
+            return PagedList<LogViewDTO>.ToPagedList(viewLogs,
+            pagination.pageNumber,
+            pagination.pageSize);
         }
 
-        public List<LogViewDTO> GetByLevel(string environment, string level)
+        public PagedList<LogViewDTO> GetByLevel(string environment, string level, PaginationParameters pagination)
         {
             List<Log> logs = _repository.FindByEnvironmentAndLevel(environment, level);
-            return _mapper.Map<List<LogViewDTO>>(logs);
+            List<LogViewDTO> viewLogs = _mapper.Map<List<LogViewDTO>>(logs);
+
+            return PagedList<LogViewDTO>.ToPagedList(viewLogs,
+            pagination.pageNumber,
+            pagination.pageSize);
         }
 
-        public List<LogViewDTO> GetBySource(string environment, string source)
+        public PagedList<LogViewDTO> GetBySource(string environment, string source, PaginationParameters pagination)
         {
             List<Log> logs = _repository.FindByEnvironmentAndSource(environment, source);
-            return _mapper.Map<List<LogViewDTO>>(logs);
+            List<LogViewDTO> viewLogs = _mapper.Map<List<LogViewDTO>>(logs);
+
+            return PagedList<LogViewDTO>.ToPagedList(viewLogs,
+            pagination.pageNumber,
+            pagination.pageSize);
         }
 
         public List<LogViewDTO> OrderByFrequency(List<LogViewDTO> logs)
         {
-            return logs.OrderBy(log => log.frequency).ToList();
+            var orderedLogs = logs.OrderBy(log => log.frequency).ToList();
+
+            return orderedLogs;
         }
 
         public List<LogViewDTO> OrderByLevel(List<LogViewDTO> logs)
         {
-            return logs.OrderBy(log => log.idLogLevel).ToList();
+            var orderedLogs = logs.OrderBy(log => log.idLogLevel).ToList();
+
+            return orderedLogs;
         }
 
 

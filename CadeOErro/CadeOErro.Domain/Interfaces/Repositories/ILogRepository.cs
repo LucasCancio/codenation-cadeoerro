@@ -1,4 +1,5 @@
 ﻿using CadeOErro.Domain.Models;
+using CadeOErro.Domain.Pagination;
 using System.Collections.Generic;
 
 namespace CadeOErro.Domain.Interfaces.Repositories

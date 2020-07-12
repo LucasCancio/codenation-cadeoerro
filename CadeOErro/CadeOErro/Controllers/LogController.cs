@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CadeOErro.Domain.Util.Exceptions;
 using CadeOErro.Server.DTOs.Log;
 using CadeOErro.Server.Interfaces.Services;
+using CadeOErro.Domain.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,11 +23,12 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpGet]
-        public ObjectResult GetAll()
+        public ObjectResult GetAll(string orderBy, [FromQuery] PaginationParameters pagination)
         {
             try
             {
-                List<LogViewDTO> logs = _service.GetAll();
+                List<LogViewDTO> logs = _service.GetAll(pagination);
+                OrderLogs(logs, orderBy);
                 return Ok(logs);
             }
             catch (Exception ex)
@@ -72,12 +74,12 @@ namespace CadeOErro.Server.Controllers
             }
         }
 
-        [HttpGet("{env}")]
-        public ObjectResult GetByEnvironment(string env, string orderBy)
+        [HttpGet("env/{env}")]
+        public ObjectResult GetByEnvironment(string env, string orderBy, [FromQuery] PaginationParameters pagination)
         {
             try
             {
-                List<LogViewDTO> logs = _service.GetByEnvironment(shortName: env);
+                List<LogViewDTO> logs = _service.GetByEnvironment(shortName: env, pagination: pagination);
                 OrderLogs(logs, orderBy);
                 return Ok(logs);
             }
@@ -88,12 +90,12 @@ namespace CadeOErro.Server.Controllers
         }
 
 
-        [HttpGet("{env}/level/{level}")]
-        public ObjectResult GetByLevel(string env, string level, string orderBy)
+        [HttpGet("env/{env}/level/{level}")]
+        public ObjectResult GetByLevel(string env, string level, string orderBy, [FromQuery] PaginationParameters pagination)
         {
             try
             {
-                List<LogViewDTO> logs = _service.GetByLevel(env, level);
+                List<LogViewDTO> logs = _service.GetByLevel(env, level,pagination);
                 OrderLogs(logs, orderBy);
                 return Ok(logs);
             }
@@ -103,12 +105,12 @@ namespace CadeOErro.Server.Controllers
             }
         }
 
-        [HttpGet("{env}/desc/{desc}")]
-        public ObjectResult GetByDescription(string env, string desc, string orderBy)
+        [HttpGet("env/{env}/desc/{desc}")]
+        public ObjectResult GetByDescription(string env, string desc, string orderBy, [FromQuery] PaginationParameters pagination)
         {
             try
             {
-                List<LogViewDTO> logs = _service.GetByDescription(env, desc);
+                List<LogViewDTO> logs = _service.GetByDescription(env, desc, pagination);
                 OrderLogs(logs, orderBy);
                 return Ok(logs);
             }
@@ -118,12 +120,12 @@ namespace CadeOErro.Server.Controllers
             }
         }
 
-        [HttpGet("{env}/source/{source}")]
-        public ObjectResult GetBySource(string env, string source, string orderBy)
+        [HttpGet("env/{env}/source/{source}")]
+        public ObjectResult GetBySource(string env, string source, string orderBy, [FromQuery] PaginationParameters pagination)
         {
             try
             {
-                List<LogViewDTO> logs = _service.GetBySource(env, source);
+                List<LogViewDTO> logs = _service.GetBySource(env, source, pagination);
                 OrderLogs(logs, orderBy);
                 return Ok(logs);
             }
