@@ -1,6 +1,7 @@
 ﻿using System;
 using CadeOErro.Domain.Util.Exceptions;
 using CadeOErro.Server.DTOs.Login;
+using CadeOErro.Server.DTOs.User;
 using CadeOErro.Server.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,21 +38,22 @@ namespace CadeOErro.Server.Controllers
 
         }
 
-        //[HttpGet]
-        //public ObjectResult RecoverPassword()
-        //{
-        //    try
-        //    {
-              
-        //    }
-        //    catch (UserNotFoundException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Ocorreu um erro inesperado: {ex.Message}");
-        //    }
-        //}
+        [HttpPost("recover")]
+        public ObjectResult RecoverPassword([FromBody] PasswordDTO dto)
+        {
+            try
+            {
+                var userView = _service.ChangePassword(dto);
+                return Ok(userView);
+            }
+            catch (UserNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Ocorreu um erro inesperado: {ex.Message}");
+            }
+        }
     }
 }

@@ -35,6 +35,13 @@ namespace CadeOErro.Data.Repositories
                 .FirstOrDefault();
         }
 
+        public User FindByEmailAndCPF(string email, string cpf)
+        {
+            return _context.Users
+                .Where(user => user.email.ToLower() == email.ToLower() && user.cpf == cpf)
+                .FirstOrDefault();
+        }
+
         public User FindByEmailAndPassword(string email, string password)
         {
             return _context.Users
@@ -57,5 +64,7 @@ namespace CadeOErro.Data.Repositories
             _context.Users.Remove(user);
             _context.SaveChanges();
         }
+
+
     }
 }

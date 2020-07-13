@@ -10,6 +10,7 @@ using CadeOErro.Server.DTOs.Login;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using CadeOErro.Server.Config;
+using CadeOErro.Server.DTOs.User;
 
 namespace CadeOErro.Server.Services
 {
@@ -23,9 +24,9 @@ namespace CadeOErro.Server.Services
             this._mapper = mapper;
         }
 
-        public  AuthenticateDTO Authenticate(string email, string password)
+        public AuthenticateDTO Authenticate(string email, string password)
         {
-            User user =  _repository.FindByEmailAndPassword(email, password);
+            User user = _repository.FindByEmailAndPassword(email, password);
 
             if (user == null) throw new UserNotFoundException("Email e/ou senha inválidos!");
 
@@ -51,6 +52,17 @@ namespace CadeOErro.Server.Services
             authenticate.expiresAt = tokenDescriptor.Expires;
 
             return authenticate;
+        }
+
+        public UserViewDTO ChangePassword(PasswordDTO dto)
+        {
+            var user = _repository.FindByEmailAndCPF(dto.email, dto.cpf);
+            if (user == null) throw new UserNotFoundException();
+
+            user.password = dto.newPassword;
+            var userView = _mapper.Map<UserViewDTO>(_repository.Save(user));
+
+            return userView;
         }
     }
 }

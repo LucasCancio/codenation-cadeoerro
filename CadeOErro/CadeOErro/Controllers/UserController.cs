@@ -73,7 +73,6 @@ namespace CadeOErro.Server.Controllers
 
         }
 
-
         [HttpPut]
         public ObjectResult Put([FromBody] UserUpdateDTO user)
         {

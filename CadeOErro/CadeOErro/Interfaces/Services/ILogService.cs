@@ -1,5 +1,4 @@
-﻿using CadeOErro.Domain.Models;
-using CadeOErro.Domain.Pagination;
+﻿using CadeOErro.Domain.Pagination;
 using CadeOErro.Server.DTOs.Log;
 using System.Collections.Generic;
 
