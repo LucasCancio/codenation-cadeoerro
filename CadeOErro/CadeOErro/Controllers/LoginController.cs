@@ -1,5 +1,5 @@
 ﻿using System;
-using CadeOErro.Domain.Util.Exceptions;
+using CadeOErro.Domain.Exceptions.User;
 using CadeOErro.Server.DTOs.Login;
 using CadeOErro.Server.DTOs.User;
 using CadeOErro.Server.Interfaces.Services;
@@ -24,8 +24,12 @@ namespace CadeOErro.Server.Controllers
         {
             try
             {
-                AuthenticateDTO authenticate = _service.Authenticate(dto.email, dto.password);
+                AuthenticateDTO authenticate = _service.Authenticate(dto);
                 return Ok(authenticate);
+            }
+            catch (InvalidUserException ex)
+            {
+                return BadRequest(ex.ValidationResult);
             }
             catch (UserNotFoundException ex)
             {
@@ -45,6 +49,10 @@ namespace CadeOErro.Server.Controllers
             {
                 var userView = _service.ChangePassword(dto);
                 return Ok(userView);
+            }
+            catch (InvalidUserException ex)
+            {
+                return BadRequest(ex.ValidationResult);
             }
             catch (UserNotFoundException ex)
             {

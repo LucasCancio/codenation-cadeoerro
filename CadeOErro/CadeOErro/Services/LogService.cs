@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+using CadeOErro.Domain.Exceptions.Log;
 using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Domain.Models;
 using CadeOErro.Domain.Pagination;
-using CadeOErro.Domain.Util.Exceptions;
 using CadeOErro.Server.DTOs.Log;
 using CadeOErro.Server.Interfaces.Services;
+using CadeOErro.Server.Util.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace CadeOErro.Server.Services
     {
         private readonly ILogRepository _repository;
         private readonly IMapper _mapper;
+        private readonly LogValidator _validator;
         public LogService(ILogRepository repository, IMapper mapper)
         {
             this._repository = repository;
             this._mapper = mapper;
+            this._validator = new LogValidator(_mapper);
         }
 
         public PagedList<LogViewDTO> GetAll(PaginationParameters pagination)
@@ -98,6 +101,9 @@ namespace CadeOErro.Server.Services
 
         public LogViewDTO Update(LogUpdateDTO logToUpdate)
         {
+            if(!_validator.IsValidUpdateDTO(logToUpdate)) throw new InvalidLogException(_validator.ValidationResult);
+
+
             Log log = _repository.FindById(logToUpdate.id);
             if (log == null) throw new LogNotFoundException();
 
@@ -107,8 +113,10 @@ namespace CadeOErro.Server.Services
             return _mapper.Map<LogViewDTO>(log);
         }
 
-        public LogViewDTO Create(LogCreateDTO logToCreate)
+        public LogViewDTO Create(LogSaveDTO logToCreate)
         {
+            if (!_validator.IsValidSaveDTO(logToCreate)) throw new InvalidLogException(_validator.ValidationResult);
+
             Log log = _mapper.Map<Log>(logToCreate);
             _repository.Save(log);
 

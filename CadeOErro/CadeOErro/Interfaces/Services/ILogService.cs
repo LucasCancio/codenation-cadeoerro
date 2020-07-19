@@ -1,4 +1,5 @@
-﻿using CadeOErro.Domain.Pagination;
+﻿using CadeOErro.Domain.Models;
+using CadeOErro.Domain.Pagination;
 using CadeOErro.Server.DTOs.Log;
 using System.Collections.Generic;
 
@@ -16,7 +17,7 @@ namespace CadeOErro.Server.Interfaces.Services
         List<LogViewDTO> OrderByFrequency(List<LogViewDTO> logs);
 
         LogViewDTO Update(LogUpdateDTO logToUpdate);
-        LogViewDTO Create(LogCreateDTO logToCreate);
+        LogViewDTO Create(LogSaveDTO logToCreate);
         LogViewDTO UpdateFileStatus(int id, bool status);
         void Delete(int id);
     }

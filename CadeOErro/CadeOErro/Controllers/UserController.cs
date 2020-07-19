@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CadeOErro.Domain.Util.Exceptions;
+using CadeOErro.Domain.Exceptions.User;
 using CadeOErro.Server.DTOs.User;
 using CadeOErro.Server.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CadeOErro.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Users")]
     [ApiController]
     [AllowAnonymous]//////////
     //[Authorize(Roles = "admin")]
@@ -39,7 +39,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpGet("{id}")]
-        public ObjectResult Get(int id)
+        public ObjectResult GetById([FromRoute] int id)
         {
             try
             {
@@ -66,6 +66,10 @@ namespace CadeOErro.Server.Controllers
                 var userCreated = _service.Create(user);
                 return StatusCode(201, userCreated);
             }
+            catch (InvalidUserException ex)
+            {
+                return BadRequest(ex.ValidationResult);
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Ocorreu um erro inesperado: {ex.Message}");
@@ -81,6 +85,10 @@ namespace CadeOErro.Server.Controllers
                 var userUpdated = _service.Update(user);
                 return Ok(userUpdated);
             }
+            catch (InvalidUserException ex)
+            {
+                return BadRequest(ex.ValidationResult);
+            }
             catch (UserNotFoundException ex)
             {
                 return NotFound(ex.Message);
@@ -93,7 +101,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpDelete("{id}")]
-        public ObjectResult Delete(int id)
+        public ObjectResult Delete([FromRoute] int id)
         {
             try
             {

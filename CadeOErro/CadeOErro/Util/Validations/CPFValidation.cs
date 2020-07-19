@@ -1,24 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CadeOErro.Domain.Interfaces.Repositories;
 
-namespace CadeOErro.Server.Util.Validators
+namespace CadeOErro.Server.Util.Validatons
 {
-    public class CPFValidator : ValidationAttribute
+    public class CPFValidation
     {
-        protected override ValidationResult IsValid(
-          object value, ValidationContext validationContext)
-        {
-            if (value == null || string.IsNullOrEmpty(value.ToString()))
-                return ValidationResult.Success;
 
-            if (!IsCpf(value.ToString()))
-            {
-                return new ValidationResult("CPF inválido");
-            }
-            return ValidationResult.Success;
+        private readonly IUserRepository _repository;
+        public CPFValidation(IUserRepository repository)
+        {
+            this._repository = repository;
         }
 
         public static bool IsCpf(string cpf)
         {
+            if (string.IsNullOrEmpty(cpf)) return false;
+
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             string tempCpf;
@@ -49,8 +45,17 @@ namespace CadeOErro.Server.Util.Validators
                 resto = 0;
             else
                 resto = 11 - resto;
-            digito = digito + resto.ToString();
+            digito += resto.ToString();
+
             return cpf.EndsWith(digito);
+        }
+
+        public bool IsUnique(string cpf)
+        {
+            var entity = _repository.FindByCPF(cpf);
+
+            if (entity != null) return false;
+            return true;
         }
     }
 }

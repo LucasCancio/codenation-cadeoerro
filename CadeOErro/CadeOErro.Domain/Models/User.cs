@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CadeOErro.Domain.Models
 {
@@ -17,6 +14,7 @@ namespace CadeOErro.Domain.Models
         [Required]
         public string name { get; set; }
         [Required]
+        [MaxLength(50)]
         public string password { get; set; }
         [Required]
         [MaxLength(11)]
@@ -25,7 +23,6 @@ namespace CadeOErro.Domain.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime createdDate { get; set; } = DateTime.UtcNow;
         public string role { get; set; }
-
 
 
     }

@@ -1,6 +1,6 @@
-﻿using CadeOErro.Domain.Interfaces.Repositories;
+﻿using CadeOErro.Domain.Exceptions.Environment;
+using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Domain.Models;
-using CadeOErro.Domain.Util.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 

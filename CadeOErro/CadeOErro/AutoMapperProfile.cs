@@ -25,13 +25,13 @@ namespace CadeOErro.Server
 
             CreateMap<Environment, EnvironmentViewDTO>()
                 .ReverseMap();
-            CreateMap<Environment, EnvironmentCreateDTO>()
+            CreateMap<Environment, EnvironmentSaveDTO>()
                 .ReverseMap();
 
 
             CreateMap<LogLevel, LogLevelViewDTO>()
                 .ReverseMap();
-            CreateMap<LogLevel, LogLevelCreateDTO>()
+            CreateMap<LogLevel, LogLevelSaveDTO>()
                 .ReverseMap();
 
 
@@ -39,7 +39,7 @@ namespace CadeOErro.Server
                 .ReverseMap();
             CreateMap<Log, LogUpdateDTO>()
                 .ReverseMap();
-            CreateMap<Log, LogCreateDTO>()
+            CreateMap<Log, LogSaveDTO>()
                 .ReverseMap();
         }
     }

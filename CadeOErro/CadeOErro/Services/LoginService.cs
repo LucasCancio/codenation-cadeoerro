@@ -2,7 +2,6 @@
 using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Server.Interfaces.Services;
 using CadeOErro.Domain.Models;
-using CadeOErro.Domain.Util.Exceptions;
 using System;
 using System.Security.Claims;
 using System.Text;
@@ -11,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using CadeOErro.Server.Config;
 using CadeOErro.Server.DTOs.User;
+using CadeOErro.Domain.Exceptions.User;
+using CadeOErro.Server.Util.Validators;
 
 namespace CadeOErro.Server.Services
 {
@@ -18,15 +19,19 @@ namespace CadeOErro.Server.Services
     {
         private readonly IUserRepository _repository;
         private readonly IMapper _mapper;
+        private readonly UserValidator _validator;
         public LoginService(IUserRepository repository, IMapper mapper)
         {
             this._repository = repository;
             this._mapper = mapper;
+            this._validator = new UserValidator(mapper, repository);
         }
 
-        public AuthenticateDTO Authenticate(string email, string password)
+        public AuthenticateDTO Authenticate(LoginDTO dto)
         {
-            User user = _repository.FindByEmailAndPassword(email, password);
+            if (!_validator.IsValidLoginDTO(dto)) throw new InvalidUserException(_validator.ValidationResult);
+
+            User user = _repository.FindByEmailAndPassword(dto.email, dto.password);
 
             if (user == null) throw new UserNotFoundException("Email e/ou senha inválidos!");
 
@@ -56,6 +61,8 @@ namespace CadeOErro.Server.Services
 
         public UserViewDTO ChangePassword(PasswordDTO dto)
         {
+            if (!_validator.IsValidPasswordDTO(dto)) throw new InvalidUserException(_validator.ValidationResult);
+
             var user = _repository.FindByEmailAndCPF(dto.email, dto.cpf);
             if (user == null) throw new UserNotFoundException();
 

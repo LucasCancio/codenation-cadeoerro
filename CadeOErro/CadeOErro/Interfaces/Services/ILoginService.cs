@@ -6,7 +6,7 @@ namespace CadeOErro.Server.Interfaces.Services
 {
     public interface ILoginService
     {
-        AuthenticateDTO Authenticate(string email, string password);
+        AuthenticateDTO Authenticate(LoginDTO dto);
         UserViewDTO ChangePassword(PasswordDTO dto);
     }
 }

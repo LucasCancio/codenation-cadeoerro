@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CadeOErro.Domain.Models
 {
@@ -13,10 +10,13 @@ namespace CadeOErro.Domain.Models
         [Key]
         public int id { get; set; }
         [Required]
+        [MaxLength(50)]
         public string title { get; set; }
+        [MaxLength(255)]
         public string description { get; set; }
         public int frequency { get; set; }
         [Required]
+        [MaxLength(255)]
         public string source { get; set; }
         [Required]
         public string stackTrace { get; set; }
@@ -43,8 +43,6 @@ namespace CadeOErro.Domain.Models
         public int idLogLevel { get; set; }
         [ForeignKey("idLogLevel")]
         public virtual LogLevel logLevel { get; set; }
-
-
 
 
     }

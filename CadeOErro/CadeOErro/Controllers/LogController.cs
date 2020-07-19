@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using CadeOErro.Domain.Util.Exceptions;
 using CadeOErro.Server.DTOs.Log;
 using CadeOErro.Server.Interfaces.Services;
 using CadeOErro.Domain.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-
+using CadeOErro.Domain.Exceptions.Log;
 
 namespace CadeOErro.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Logs")]
     [ApiController]
     [AllowAnonymous]//////////
     public class LogController : ControllerBase
@@ -28,6 +26,7 @@ namespace CadeOErro.Server.Controllers
             try
             {
                 List<LogViewDTO> logs = _service.GetAll(pagination);
+
                 OrderLogs(logs, orderBy);
                 return Ok(logs);
             }
@@ -38,7 +37,7 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpGet("{id}/filed/{status}")]
-        public ObjectResult ChangeFileStatus(int id, bool status)
+        public ObjectResult ChangeFileStatus([FromRoute] int id, [FromRoute] bool status)
         {
             try
             {
@@ -57,7 +56,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpGet("{id}")]
-        public ObjectResult Get(int id)
+        public ObjectResult GetById([FromRoute] int id)
         {
             try
             {
@@ -75,7 +74,7 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpGet("env/{env}")]
-        public ObjectResult GetByEnvironment(string env, string orderBy, [FromQuery] PaginationParameters pagination)
+        public ObjectResult GetByEnvironment([FromRoute] string env, [FromQuery] string orderBy, [FromQuery] PaginationParameters pagination)
         {
             try
             {
@@ -91,11 +90,11 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpGet("env/{env}/level/{level}")]
-        public ObjectResult GetByLevel(string env, string level, string orderBy, [FromQuery] PaginationParameters pagination)
+        public ObjectResult GetByLevel([FromRoute] string env, [FromRoute] string level, [FromQuery] string orderBy, [FromQuery] PaginationParameters pagination)
         {
             try
             {
-                List<LogViewDTO> logs = _service.GetByLevel(env, level,pagination);
+                List<LogViewDTO> logs = _service.GetByLevel(env, level, pagination);
                 OrderLogs(logs, orderBy);
                 return Ok(logs);
             }
@@ -106,7 +105,7 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpGet("env/{env}/desc/{desc}")]
-        public ObjectResult GetByDescription(string env, string desc, string orderBy, [FromQuery] PaginationParameters pagination)
+        public ObjectResult GetByDescription([FromRoute] string env, [FromRoute] string desc, [FromQuery] string orderBy, [FromQuery] PaginationParameters pagination)
         {
             try
             {
@@ -121,7 +120,7 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpGet("env/{env}/source/{source}")]
-        public ObjectResult GetBySource(string env, string source, string orderBy, [FromQuery] PaginationParameters pagination)
+        public ObjectResult GetBySource([FromRoute] string env, [FromRoute] string source, [FromQuery] string orderBy, [FromQuery] PaginationParameters pagination)
         {
             try
             {
@@ -143,12 +142,17 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpPost]
-        public ObjectResult Post([FromBody] LogCreateDTO log)
+        public ObjectResult Post([FromBody] LogSaveDTO log)
         {
             try
             {
                 var logCreated = _service.Create(log);
+
                 return StatusCode(201, logCreated);
+            }
+            catch (InvalidLogException ex)
+            {
+                return BadRequest(ex.ValidationResult);
             }
             catch (Exception ex)
             {
@@ -178,7 +182,7 @@ namespace CadeOErro.Server.Controllers
 
         [HttpDelete("{id}")]
         //[Authorize(Roles = "admin")]
-        public ObjectResult Delete(int id)
+        public ObjectResult Delete([FromRoute] int id)
         {
             try
             {
