@@ -1,6 +1,5 @@
 ﻿using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Domain.Models;
-using CadeOErro.Domain.Pagination;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using CadeOErro.Domain.Exceptions.Log;
+using CadeOErro.Domain.Filter;
 using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Domain.Models;
-using CadeOErro.Domain.Pagination;
 using CadeOErro.Server.DTOs.Log;
 using CadeOErro.Server.Interfaces.Services;
 using CadeOErro.Server.Util.Validators;
@@ -97,11 +97,27 @@ namespace CadeOErro.Server.Services
             return orderedLogs;
         }
 
-
+        public List<LogViewDTO> FilterByFiledStatus(List<LogViewDTO> logs, FiledStatus status)
+        {
+            switch (status)
+            {
+                case FiledStatus.Unfiled:
+                    return logs
+                        .Where(l => !l.filed)
+                        .ToList();
+                case FiledStatus.Filed:
+                    return logs
+                        .Where(l => l.filed)
+                        .ToList();
+                case FiledStatus.All:
+                default:
+                    return logs;
+            }
+        }
 
         public LogViewDTO Update(LogUpdateDTO logToUpdate)
         {
-            if(!_validator.IsValidUpdateDTO(logToUpdate)) throw new InvalidLogException(_validator.ValidationResult);
+            if (!_validator.IsValidUpdateDTO(logToUpdate)) throw new InvalidLogException(_validator.ValidationResult);
 
 
             Log log = _repository.FindById(logToUpdate.id);
@@ -144,5 +160,7 @@ namespace CadeOErro.Server.Services
 
             return _mapper.Map<LogViewDTO>(log);
         }
+
+
     }
 }

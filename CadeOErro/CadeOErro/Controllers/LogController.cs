@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using CadeOErro.Server.DTOs.Log;
 using CadeOErro.Server.Interfaces.Services;
-using CadeOErro.Domain.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CadeOErro.Domain.Exceptions.Log;
+using CadeOErro.Domain.Filter;
 
 namespace CadeOErro.Server.Controllers
 {
@@ -21,13 +21,13 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpGet]
-        public ObjectResult GetAll(string orderBy, [FromQuery] PaginationParameters pagination)
+        public ObjectResult GetAll([FromQuery] FilterParameters filter, [FromQuery] PaginationParameters pagination)
         {
             try
             {
                 List<LogViewDTO> logs = _service.GetAll(pagination);
 
-                OrderLogs(logs, orderBy);
+                logs= logs= FilterLogs(logs, filter);
                 return Ok(logs);
             }
             catch (Exception ex)
@@ -74,12 +74,12 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpGet("env/{env}")]
-        public ObjectResult GetByEnvironment([FromRoute] string env, [FromQuery] string orderBy, [FromQuery] PaginationParameters pagination)
+        public ObjectResult GetByEnvironment([FromRoute] string env, [FromQuery] FilterParameters filter, [FromQuery] PaginationParameters pagination)
         {
             try
             {
                 List<LogViewDTO> logs = _service.GetByEnvironment(shortName: env, pagination: pagination);
-                OrderLogs(logs, orderBy);
+                logs= FilterLogs(logs, filter);
                 return Ok(logs);
             }
             catch (Exception ex)
@@ -90,12 +90,12 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpGet("env/{env}/level/{level}")]
-        public ObjectResult GetByLevel([FromRoute] string env, [FromRoute] string level, [FromQuery] string orderBy, [FromQuery] PaginationParameters pagination)
+        public ObjectResult GetByLevel([FromRoute] string env, [FromRoute] string level, [FromQuery] FilterParameters filter, [FromQuery] PaginationParameters pagination)
         {
             try
             {
                 List<LogViewDTO> logs = _service.GetByLevel(env, level, pagination);
-                OrderLogs(logs, orderBy);
+                logs= FilterLogs(logs, filter);
                 return Ok(logs);
             }
             catch (Exception ex)
@@ -105,12 +105,12 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpGet("env/{env}/desc/{desc}")]
-        public ObjectResult GetByDescription([FromRoute] string env, [FromRoute] string desc, [FromQuery] string orderBy, [FromQuery] PaginationParameters pagination)
+        public ObjectResult GetByDescription([FromRoute] string env, [FromRoute] string desc, [FromQuery] FilterParameters filter, [FromQuery] PaginationParameters pagination)
         {
             try
             {
                 List<LogViewDTO> logs = _service.GetByDescription(env, desc, pagination);
-                OrderLogs(logs, orderBy);
+                logs= FilterLogs(logs, filter);
                 return Ok(logs);
             }
             catch (Exception ex)
@@ -120,12 +120,12 @@ namespace CadeOErro.Server.Controllers
         }
 
         [HttpGet("env/{env}/source/{source}")]
-        public ObjectResult GetBySource([FromRoute] string env, [FromRoute] string source, [FromQuery] string orderBy, [FromQuery] PaginationParameters pagination)
+        public ObjectResult GetBySource([FromRoute] string env, [FromRoute] string source, [FromQuery] FilterParameters filter, [FromQuery] PaginationParameters pagination)
         {
             try
             {
                 List<LogViewDTO> logs = _service.GetBySource(env, source, pagination);
-                OrderLogs(logs, orderBy);
+                logs= FilterLogs(logs, filter);
                 return Ok(logs);
             }
             catch (Exception ex)
@@ -134,10 +134,12 @@ namespace CadeOErro.Server.Controllers
             }
         }
 
-        private List<LogViewDTO> OrderLogs(List<LogViewDTO> logs, string orderBy)
+        private List<LogViewDTO> FilterLogs(List<LogViewDTO> logs, FilterParameters filter)
         {
-            if (orderBy == "frequency") return _service.OrderByFrequency(logs);
-            else if (orderBy == "level") return _service.OrderByLevel(logs);
+            logs = _service.FilterByFiledStatus(logs, filter.filedStatus);
+
+            if (filter.orderBy == "frequency") return _service.OrderByFrequency(logs);
+            else if (filter.orderBy == "level") return _service.OrderByLevel(logs);
             return logs;
         }
 

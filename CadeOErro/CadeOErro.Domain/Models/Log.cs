@@ -18,7 +18,6 @@ namespace CadeOErro.Domain.Models
         [Required]
         [MaxLength(255)]
         public string source { get; set; }
-        [Required]
         public string stackTrace { get; set; }
         public bool filed { get; set; }
         [Column("filed_date")]

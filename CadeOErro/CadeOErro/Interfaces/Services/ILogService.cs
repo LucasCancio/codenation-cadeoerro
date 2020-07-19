@@ -1,5 +1,5 @@
-﻿using CadeOErro.Domain.Models;
-using CadeOErro.Domain.Pagination;
+﻿using CadeOErro.Domain.Filter;
+using CadeOErro.Domain.Models;
 using CadeOErro.Server.DTOs.Log;
 using System.Collections.Generic;
 
@@ -15,6 +15,7 @@ namespace CadeOErro.Server.Interfaces.Services
         PagedList<LogViewDTO> GetBySource(string environment, string source, PaginationParameters pagination);
         List<LogViewDTO> OrderByLevel(List<LogViewDTO> logs);
         List<LogViewDTO> OrderByFrequency(List<LogViewDTO> logs);
+        List<LogViewDTO> FilterByFiledStatus(List<LogViewDTO> logs, FiledStatus status);
 
         LogViewDTO Update(LogUpdateDTO logToUpdate);
         LogViewDTO Create(LogSaveDTO logToCreate);
