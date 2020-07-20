@@ -11,7 +11,6 @@ namespace CadeOErro.Server.Controllers
 {
     [Route("api/Logs")]
     [ApiController]
-    [AllowAnonymous]//////////
     public class LogController : ControllerBase
     {
         private readonly ILogService _service;
@@ -183,7 +182,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public ObjectResult Delete([FromRoute] int id)
         {
             try

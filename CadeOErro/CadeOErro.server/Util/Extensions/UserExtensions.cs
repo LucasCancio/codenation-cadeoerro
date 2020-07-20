@@ -8,6 +8,7 @@ namespace CadeOErro.Server.Util.Extensions
         {
             user.name = user.name.ToFirstLetterUpper();
             user.cpf = user.cpf?.Replace(".", "").Replace("-", "");
+            user.password = MD5Cryptography.GetHash(user.password);
 
             return user;
         }

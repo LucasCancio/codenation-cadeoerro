@@ -12,8 +12,7 @@ namespace CadeOErro.Server.Controllers
 {
     [Route("api/Users")]
     [ApiController]
-    [AllowAnonymous]//////////
-    //[Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;

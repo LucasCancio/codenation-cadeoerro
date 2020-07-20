@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CadeOErro.Domain.Models;
 using CadeOErro.Server.DTOs.Log;
-using CadeOErro.Server.DTOs.LogLevel;
 using FluentValidation;
 using FluentValidation.Results;
 

@@ -4,7 +4,6 @@ using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Server.Interfaces.Services;
 using CadeOErro.Domain.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using CadeOErro.Server.Util.Extensions;
 using CadeOErro.Domain.Exceptions.User;
 using CadeOErro.Server.Util.Validators;

@@ -119,7 +119,9 @@ namespace CadeOErro.Server.Util.Validators
             ValidatePassword();
             ValidateRole();
 
-            return IsValid(user);
+            ValidationResult = Validate(user);
+
+            return ValidationResult.IsValid;
         }
 
         public bool IsValidPasswordDTO(PasswordDTO dto)
@@ -129,7 +131,9 @@ namespace CadeOErro.Server.Util.Validators
             ValidateEmail();
             ValidateCPF();
 
-            return IsValid(user);
+            ValidationResult = Validate(user);
+
+            return ValidationResult.IsValid;
         }
 
         public bool IsValidLoginDTO(LoginDTO dto)
@@ -139,7 +143,9 @@ namespace CadeOErro.Server.Util.Validators
             ValidateEmail();
             ValidatePassword();
 
-            return IsValid(user);
+            ValidationResult = Validate(user);
+
+            return ValidationResult.IsValid;
         }
 
     }

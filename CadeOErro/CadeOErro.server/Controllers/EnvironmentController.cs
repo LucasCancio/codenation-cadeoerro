@@ -14,7 +14,6 @@ namespace CadeOErro.Server.Controllers
 {
     [Route("api/Environments")]
     [ApiController]
-    [AllowAnonymous]//////////
     public class EnvironmentController : ControllerBase
     {
         private readonly IEnvironmentRepository _repository;
@@ -63,7 +62,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpPost]
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public ObjectResult Post([FromBody] EnvironmentSaveDTO environmentDTO)
         {
             try
@@ -82,7 +81,7 @@ namespace CadeOErro.Server.Controllers
 
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public ObjectResult Delete([FromRoute] int id)
         {
             try

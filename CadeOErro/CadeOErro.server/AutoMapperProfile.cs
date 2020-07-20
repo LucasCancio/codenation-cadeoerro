@@ -15,6 +15,8 @@ namespace CadeOErro.Server
         {
             CreateMap<User, AuthenticateDTO>()
                 .ReverseMap();
+            CreateMap<User, LoginDTO>()
+                .ReverseMap();
             CreateMap<User, UserViewDTO>()
                 .ReverseMap();
             CreateMap<User, UserUpdateDTO>()

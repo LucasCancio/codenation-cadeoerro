@@ -12,6 +12,7 @@ using CadeOErro.Server.Config;
 using CadeOErro.Server.DTOs.User;
 using CadeOErro.Domain.Exceptions.User;
 using CadeOErro.Server.Util.Validators;
+using CadeOErro.Server.Util;
 
 namespace CadeOErro.Server.Services
 {
@@ -31,7 +32,7 @@ namespace CadeOErro.Server.Services
         {
             if (!_validator.IsValidLoginDTO(dto)) throw new InvalidUserException(_validator.ValidationResult);
 
-            User user = _repository.FindByEmailAndPassword(dto.email, dto.password);
+            User user = _repository.FindByEmailAndPassword(dto.email, MD5Cryptography.GetHash(dto.password));
 
             if (user == null) throw new UserNotFoundException("Email e/ou senha inválidos!");
 

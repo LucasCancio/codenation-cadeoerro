@@ -7,7 +7,7 @@ namespace CadeOErro.Server.Util.Validatons
         public static bool IsRole(string role)
         {
             role = role.ToLower();
-            return (role != "admin" && role != "user");
+            return (role == "admin" || role == "user");
         }
     }
 }
