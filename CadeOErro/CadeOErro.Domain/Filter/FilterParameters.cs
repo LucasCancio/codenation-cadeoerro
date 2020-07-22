@@ -6,6 +6,7 @@ namespace CadeOErro.Domain.Filter
 {
     public class FilterParameters
     {
+        
         public string orderBy { get; set; }
         public FiledStatus filedStatus { get; set; } = FiledStatus.All;
     }

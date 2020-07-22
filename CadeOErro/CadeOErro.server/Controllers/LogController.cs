@@ -18,7 +18,6 @@ namespace CadeOErro.Server.Controllers
         {
             _service = service;
         }
-
         [HttpGet]
         public ObjectResult GetAll([FromQuery] FilterParameters filter, [FromQuery] PaginationParameters pagination)
         {
