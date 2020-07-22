@@ -5,6 +5,7 @@ using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Domain.Models;
 using CadeOErro.Server.DTOs.Log;
 using CadeOErro.Server.Interfaces.Services;
+using CadeOErro.Server.Util.Extensions;
 using CadeOErro.Server.Util.Validators;
 using System;
 using System.Collections.Generic;
@@ -119,14 +120,25 @@ namespace CadeOErro.Server.Services
         {
             if (!_validator.IsValidUpdateDTO(logToUpdate)) throw new InvalidLogException(_validator.ValidationResult);
 
-
             Log log = _repository.FindById(logToUpdate.id);
             if (log == null) throw new LogNotFoundException();
 
             log = _mapper.Map(logToUpdate, log);
-            _repository.Save(log);
+            _repository.Save(log.FixFields());
 
             return _mapper.Map<LogViewDTO>(log);
+        }
+
+        private Log AddFrequencyIfExists(Log log)
+        {
+            var logInDatabase = _repository.FindIfExists(log);
+            if (logInDatabase != null)
+            {
+                logInDatabase.frequency += 1;
+                return logInDatabase;
+            }
+            return log;
+
         }
 
         public LogViewDTO Create(LogSaveDTO logToCreate)
@@ -134,6 +146,10 @@ namespace CadeOErro.Server.Services
             if (!_validator.IsValidSaveDTO(logToCreate)) throw new InvalidLogException(_validator.ValidationResult);
 
             Log log = _mapper.Map<Log>(logToCreate);
+            log = log.FixFields();
+
+            log = AddFrequencyIfExists(log);
+
             _repository.Save(log);
 
             return _mapper.Map<LogViewDTO>(log);
@@ -156,7 +172,7 @@ namespace CadeOErro.Server.Services
             log.filed = status;
             if (log.filed) log.filedDate = DateTime.Now;
 
-            _repository.Save(log);
+            _repository.Save(log.FixFields());
 
             return _mapper.Map<LogViewDTO>(log);
         }

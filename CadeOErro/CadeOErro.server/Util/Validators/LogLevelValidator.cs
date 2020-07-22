@@ -36,7 +36,6 @@ namespace CadeOErro.Server.Util.Validators
 
         public virtual bool IsValid(LogLevel logLevel)
         {
-            ValidateId();
             ValidateDescription();
 
             ValidationResult = Validate(logLevel);

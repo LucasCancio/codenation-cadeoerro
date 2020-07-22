@@ -12,6 +12,7 @@ namespace CadeOErro.Domain.Interfaces.Repositories
         List<Log> FindByEnvironmentAndDescription(string envShortName, string logDescription);
         List<Log> FindByEnvironmentAndSource(string envShortName, string source);
         Log Save(Log log);
+        Log FindIfExists(Log log);
         void Delete(Log log);
     }
 }

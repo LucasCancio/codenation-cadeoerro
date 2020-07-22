@@ -1,6 +1,7 @@
 ﻿using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -19,17 +20,25 @@ namespace CadeOErro.Data.Repositories
         {
             return _context.Logs.ToList();
         }
+        public Log FindIfExists(Log log)
+        {
+            var logInDatabase = _context.Logs
+                .AsEnumerable()
+                 .FirstOrDefault(l => log.Equals(l));
+
+            return logInDatabase;
+        }
         public Log FindById(int id)
         {
 
-            var user = _context.Logs
+            var log = _context.Logs
                 .Include(log => log.logLevel)
                 .Include(log => log.environment)
                 .Include(log => log.user)
                 .Where(log => log.id == id)
                 .FirstOrDefault();
 
-            return user;
+            return log;
         }
 
         public List<Log> FindByEnvironment(string shortName)

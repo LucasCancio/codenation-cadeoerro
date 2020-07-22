@@ -43,7 +43,6 @@ namespace CadeOErro.Server.Util.Validators
 
         public virtual bool IsValid(Environment environment)
         {
-            ValidateId();
             ValidateDescription();
             ValidateShortName();
 

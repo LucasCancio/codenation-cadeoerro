@@ -29,8 +29,12 @@ namespace CadeOErro.Data.Seeds
             {
                 description = "debug"
             };
+            LogLevel lvl4 = new LogLevel
+            {
+                description = "info"
+            };
 
-            _context.LogLevels.AddRange(lvl1, lvl2, lvl3);
+            _context.LogLevels.AddRange(lvl1, lvl2, lvl3,lvl4);
             _context.SaveChanges();
         }
     }

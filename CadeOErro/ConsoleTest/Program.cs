@@ -11,10 +11,10 @@ namespace ConsoleTest
         {
             var api = new Api();
 
-            var login = new { email = "lucas@gmail.com", password = "123" };
+            var login = new { email = "admin@gmail.com", password = "123" };
             dynamic tokenResult = JsonConvert.DeserializeObject<dynamic>(await api.PostData(JsonConvert.SerializeObject(login), "login"));
             string token = tokenResult.token;
-            string idUser = tokenResult.idUser;
+            int idUser = tokenResult.idUser;
             string name = tokenResult.name;
             api.SetToken(token);
 
@@ -37,8 +37,8 @@ namespace ConsoleTest
                 {
                     case "1":
                         var excessao = await CausarExcessao();
-                        var json = new { title = "Excessao", description = excessao.Message, frequency = 1, source = excessao.Source, stackTrace = excessao.StackTrace, idUser, idEnvironment = 1, idLogLevel = 1 };
-                        await api.PostData(JsonConvert.SerializeObject(json), "logs");
+                        var json = new { description = excessao.Message, frequency = 1, source = excessao.Source, stackTrace = excessao.StackTrace, idUser, idEnvironment = 1, idLogLevel = 1 };
+                        var response = await api.PostData(JsonConvert.SerializeObject(json), "logs");
                         break;
                     case "2":
                         var ambientes = await api.GetData("environments");

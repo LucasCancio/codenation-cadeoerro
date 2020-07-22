@@ -40,6 +40,21 @@ namespace CadeOErro.Domain.Models
         [ForeignKey("idLogLevel")]
         public virtual LogLevel logLevel { get; set; }
 
+        public override bool Equals(object obj)
+        {
+            var log = (Log)obj;
 
+            bool idsEquals = log.idEnvironment == this.idEnvironment && log.idLogLevel == this.idLogLevel;
+
+            return idsEquals &&
+                this.description.ToLower() == log.description.ToLower() &&
+                this.source.ToLower() == log.source.ToLower() &&
+                this.stackTrace.ToLower() == log.stackTrace.ToLower();
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

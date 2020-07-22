@@ -21,7 +21,7 @@ namespace CadeOErro.Data.Seeds
             {
                 name="Lucas",
                 role="admin",
-                email="lucas@gmail.com",
+                email="admin@gmail.com",
                 password= "202cb962ac59075b964b07152d234b70",
                 cpf= "20735259038"
             };
