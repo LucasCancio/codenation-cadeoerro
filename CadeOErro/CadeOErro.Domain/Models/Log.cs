@@ -10,12 +10,9 @@ namespace CadeOErro.Domain.Models
         [Key]
         public int id { get; set; }
         [Required]
-        [MaxLength(50)]
-        public string title { get; set; }
         [MaxLength(255)]
         public string description { get; set; }
         public int frequency { get; set; }
-        [Required]
         [MaxLength(255)]
         public string source { get; set; }
         public string stackTrace { get; set; }

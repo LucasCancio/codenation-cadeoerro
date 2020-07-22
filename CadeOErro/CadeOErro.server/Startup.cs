@@ -1,6 +1,7 @@
 using AutoMapper;
 using CadeOErro.Data;
 using CadeOErro.Data.Repositories;
+using CadeOErro.Data.Seeds;
 using CadeOErro.Domain.Interfaces.Repositories;
 using CadeOErro.Server.Config;
 using CadeOErro.Server.Interfaces.Services;
@@ -52,6 +53,11 @@ namespace CadeOErro.Server
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            // Seeds
+            services.AddScoped<UserSeed>();
+            services.AddScoped<LogLevelSeed>();
+            services.AddScoped<EnvironmentSeed>();
 
             //Repositories
             services.AddScoped<IEnvironmentRepository, EnvironmentRepository>();
@@ -118,11 +124,14 @@ namespace CadeOErro.Server
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserSeed userSeed, LogLevelSeed levelSeed, EnvironmentSeed environmentSeed)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                userSeed.Populate();
+                levelSeed.Populate();
+                environmentSeed.Populate();
             }
 
             app.UseHttpsRedirection();

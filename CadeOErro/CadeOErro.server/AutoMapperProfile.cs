@@ -14,6 +14,7 @@ namespace CadeOErro.Server
         public AutoMapperProfile()
         {
             CreateMap<User, AuthenticateDTO>()
+                .ForMember(dto => dto.idUser, config => config.MapFrom(user => user.id))
                 .ReverseMap();
             CreateMap<User, LoginDTO>()
                 .ReverseMap();
