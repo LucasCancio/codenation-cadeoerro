@@ -37,7 +37,7 @@ namespace ConsoleTest
                 {
                     case "1":
                         var excessao = await CausarExcessao();
-                        var json = new { description = excessao.Message, frequency = 1, source = excessao.Source, stackTrace = excessao.StackTrace, idUser, idEnvironment = 1, idLogLevel = 1 };
+                        var json = new { description = excessao.Message, frequency = 1, source = "127.0.0.1:5000", stackTrace = excessao.StackTrace, idUser, idEnvironment = 1, idLogLevel = 1 };
                         var response = await api.PostData(JsonConvert.SerializeObject(json), "logs");
                         break;
                     case "2":

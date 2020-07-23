@@ -6,7 +6,11 @@ namespace CadeOErro.Server.Util.Extensions
     {
         public static Log FixFields(this Log log)
         {
-            log.stackTrace = log.stackTrace.Trim();
+            if (!string.IsNullOrEmpty(log.stackTrace))
+            {
+                log.stackTrace = log.stackTrace.Trim();
+            }
+            
 
             return log;
         }

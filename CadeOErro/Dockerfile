@@ -2,8 +2,6 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
@@ -13,12 +11,16 @@ COPY ["CadeOErro.Domain/CadeOErro.Domain.csproj", "CadeOErro.Domain/"]
 RUN dotnet restore "CadeOErro.Server/CadeOErro.Server.csproj"
 COPY . .
 WORKDIR "/src/CadeOErro.Server"
-RUN dotnet build "CadeOErro.Server.csproj" -c Release -o /app/build
+RUN dotnet build "./CadeOErro.Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CadeOErro.Server.csproj" -c Release -o /app/publish
+RUN dotnet publish "./CadeOErro.Server.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "CadeOErro.Server.dll"]
+
+RUN useradd -m myappuser
+USER myappuser
+
+CMD ASPNETCORE_URLS="http://*:$PORT" dotnet CadeOErro.Server.dll
