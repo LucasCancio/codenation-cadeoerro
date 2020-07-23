@@ -1,14 +1,13 @@
 <p align="center">
 <img width="200" src="assets/cadeoerro-logo.png">
 </p>
-<h1 align="center"><b>Cadê o Erro?</b></h1>
+<h1 align="center">Cadê o Erro?</h1>
+<h4 align="center">Projeto pratico desenvolvido na Aceleração C# do programa AceleraDev, patrocionado pela Stone</h4>
 
-### Projeto pratico desenvolvido na Aceleração C# do programa AceleraDev, patrocionado pela Stone
 ## 🤔 O que é o AceleraDev?
 
 Criado pela Codenation, é um programa de capacitação gratuito para profissionais de tecnologia. 
 Durante 10 semanas, devs e cientistas de dados têm acesso a desafios, conteúdos e à Comunidade Codenation para adquirirem e praticarem as habilidades técnicas mais utilizadas por empresas de tecnologia de todo o mundo.
-_________
 
 ## ✨ Sobre o projeto
 
@@ -30,7 +29,7 @@ Contem a regra de negócio (Entidades, Interfaces, etc..)
 Contem a integração com o banco de dados
 
 #### 🏭 Server
-Contem a API (Controllers, DTOs, etc..)
+Contem a WebAPI (Controllers, DTOs, etc..)
 
 ## 💡 Tecnologias
 
@@ -47,18 +46,18 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 ## 🚗 Endpoints (Rotas)
 
 #### Login (Sem autenticação)
-![](assets/login-print.png)
+![](assets/login-print.PNG)
 
 #### Niveis de Log (Visualizar = Usuarios | Gerenciar = Administradores)
-![](assets/logLevel-print.png)
+![](assets/logLevel-print.PNG)
 
 #### Ambientes (Visualizar = Usuarios | Gerenciar = Administradores)
-![](assets/environment-print.png)
+![](assets/environment-print.PNG)
 
 #### Logs (Visualizar, Adicionar, Alterar, Arquivar = Usuarios | Deletar = Administradores)
-![](assets/log-print.png)
+![](assets/log-print.PNG)
 
 #### Usuários (Somente Administradores)
-![](assets/user-print.png)
+![](assets/user-print.PNG)
 
 ## ❤ Agradeço muito a [Codenation](https://www.codenation.dev/) e a [Stone](https://www.stone.com.br/)
