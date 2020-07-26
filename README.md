@@ -2,7 +2,7 @@
 <img width="200" src="assets/cadeoerro-logo.png">
 </p>
 <h1 align="center">Cadê o Erro?</h1>
-<h4 align="center">Projeto pratico desenvolvido na Aceleração C# do programa AceleraDev, patrocionado pela Stone</h4>
+<h4 align="center">Projeto pratico desenvolvido na Aceleração C# do programa AceleraDev, patrocinado pela Stone</h4>
 
 ## 🤔 O que é o AceleraDev?
 
@@ -16,6 +16,8 @@ Em projetos modernos é cada vez mais comum o uso de arquiteturas baseadas em se
 E é pensando nisso que foi criado o "Cadê o Erro"!!
 
 O "Cadê o Erro" é uma Central de Erros, responsável por gerenciar e centralizar os relatórios de erros de várias aplicações.
+
+<a align="center" href="https://www.youtube.com/watch?v=oFzFuMDSlSI&feature=youtu.be">🎥 Apresentação</a>
 
 ## 📐 Arquitetura
 
